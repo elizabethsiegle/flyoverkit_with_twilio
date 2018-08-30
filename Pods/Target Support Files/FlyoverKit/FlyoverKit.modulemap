@@ -1,0 +1,6 @@
+framework module FlyoverKit {
+  umbrella header "FlyoverKit-umbrella.h"
+
+  export *
+  module * { export * }
+}

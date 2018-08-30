@@ -15,6 +15,9 @@
 		1C919DFB21375163008CC300 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C919DF921375163008CC300 /* LaunchScreen.storyboard */; };
 		1C919E0621375163008CC300 /* TwilioFlyoverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C919E0521375163008CC300 /* TwilioFlyoverTests.swift */; };
 		1C919E1121375163008CC300 /* TwilioFlyoverUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C919E1021375163008CC300 /* TwilioFlyoverUITests.swift */; };
+		BBD971A000875F1B99F3D53C /* Pods_TwilioFlyover.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43F1F8F1D97B39B353567244 /* Pods_TwilioFlyover.framework */; };
+		E815B3D492D2156767D64152 /* Pods_TwilioFlyoverUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ACC6B5A51EFEA8578497D08 /* Pods_TwilioFlyoverUITests.framework */; };
+		FF64D7B6378A609150ED9424 /* Pods_TwilioFlyoverTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E2386AE6430362131653DF /* Pods_TwilioFlyoverTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0ACC6B5A51EFEA8578497D08 /* Pods_TwilioFlyoverUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwilioFlyoverUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1343AB59D0E5F7A2C5468052 /* Pods-TwilioFlyover.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwilioFlyover.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TwilioFlyover/Pods-TwilioFlyover.debug.xcconfig"; sourceTree = "<group>"; };
 		1C919DEA21375162008CC300 /* TwilioFlyover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwilioFlyover.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C919DED21375162008CC300 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C919DEF21375162008CC300 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -49,6 +54,13 @@
 		1C919E0C21375163008CC300 /* TwilioFlyoverUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TwilioFlyoverUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C919E1021375163008CC300 /* TwilioFlyoverUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwilioFlyoverUITests.swift; sourceTree = "<group>"; };
 		1C919E1221375163008CC300 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B1EE2E05349475A06EDAAAF /* Pods-TwilioFlyoverUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwilioFlyoverUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TwilioFlyoverUITests/Pods-TwilioFlyoverUITests.release.xcconfig"; sourceTree = "<group>"; };
+		43F1F8F1D97B39B353567244 /* Pods_TwilioFlyover.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwilioFlyover.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D80EBF8A6457CCF9CCDCB69 /* Pods-TwilioFlyover.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwilioFlyover.release.xcconfig"; path = "Pods/Target Support Files/Pods-TwilioFlyover/Pods-TwilioFlyover.release.xcconfig"; sourceTree = "<group>"; };
+		92FD2E0E1C9666F61CC7C8B4 /* Pods-TwilioFlyoverUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwilioFlyoverUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TwilioFlyoverUITests/Pods-TwilioFlyoverUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		99E2386AE6430362131653DF /* Pods_TwilioFlyoverTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwilioFlyoverTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7F6399AC9025A658632C2B3 /* Pods-TwilioFlyoverTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwilioFlyoverTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TwilioFlyoverTests/Pods-TwilioFlyoverTests.release.xcconfig"; sourceTree = "<group>"; };
+		F62BE1BB8CB5FD05E5644232 /* Pods-TwilioFlyoverTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwilioFlyoverTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TwilioFlyoverTests/Pods-TwilioFlyoverTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBD971A000875F1B99F3D53C /* Pods_TwilioFlyover.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF64D7B6378A609150ED9424 /* Pods_TwilioFlyoverTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,12 +84,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E815B3D492D2156767D64152 /* Pods_TwilioFlyoverUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		163C3BF13217B074D67A2C85 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				43F1F8F1D97B39B353567244 /* Pods_TwilioFlyover.framework */,
+				99E2386AE6430362131653DF /* Pods_TwilioFlyoverTests.framework */,
+				0ACC6B5A51EFEA8578497D08 /* Pods_TwilioFlyoverUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1C919DE121375162008CC300 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +108,8 @@
 				1C919E0421375163008CC300 /* TwilioFlyoverTests */,
 				1C919E0F21375163008CC300 /* TwilioFlyoverUITests */,
 				1C919DEB21375162008CC300 /* Products */,
+				FC660178DF9A4D5A4CB97F8E /* Pods */,
+				163C3BF13217B074D67A2C85 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,6 +155,19 @@
 			path = TwilioFlyoverUITests;
 			sourceTree = "<group>";
 		};
+		FC660178DF9A4D5A4CB97F8E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1343AB59D0E5F7A2C5468052 /* Pods-TwilioFlyover.debug.xcconfig */,
+				6D80EBF8A6457CCF9CCDCB69 /* Pods-TwilioFlyover.release.xcconfig */,
+				F62BE1BB8CB5FD05E5644232 /* Pods-TwilioFlyoverTests.debug.xcconfig */,
+				D7F6399AC9025A658632C2B3 /* Pods-TwilioFlyoverTests.release.xcconfig */,
+				92FD2E0E1C9666F61CC7C8B4 /* Pods-TwilioFlyoverUITests.debug.xcconfig */,
+				3B1EE2E05349475A06EDAAAF /* Pods-TwilioFlyoverUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +175,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1C919E1521375163008CC300 /* Build configuration list for PBXNativeTarget "TwilioFlyover" */;
 			buildPhases = (
+				6D21F3350B5BED5314B8D0E1 /* [CP] Check Pods Manifest.lock */,
 				1C919DE621375162008CC300 /* Sources */,
 				1C919DE721375162008CC300 /* Frameworks */,
 				1C919DE821375162008CC300 /* Resources */,
+				EBC3845EFAA3EF74296D7D49 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -152,6 +194,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1C919E1821375163008CC300 /* Build configuration list for PBXNativeTarget "TwilioFlyoverTests" */;
 			buildPhases = (
+				9BB1F12842260B1FFD56999D /* [CP] Check Pods Manifest.lock */,
 				1C919DFD21375163008CC300 /* Sources */,
 				1C919DFE21375163008CC300 /* Frameworks */,
 				1C919DFF21375163008CC300 /* Resources */,
@@ -170,6 +213,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1C919E1B21375163008CC300 /* Build configuration list for PBXNativeTarget "TwilioFlyoverUITests" */;
 			buildPhases = (
+				209F134EFF45CEBEFFED0C9D /* [CP] Check Pods Manifest.lock */,
 				1C919E0821375163008CC300 /* Sources */,
 				1C919E0921375163008CC300 /* Frameworks */,
 				1C919E0A21375163008CC300 /* Resources */,
@@ -253,6 +297,81 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		209F134EFF45CEBEFFED0C9D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TwilioFlyoverUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6D21F3350B5BED5314B8D0E1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TwilioFlyover-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9BB1F12842260B1FFD56999D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TwilioFlyoverTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EBC3845EFAA3EF74296D7D49 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TwilioFlyover/Pods-TwilioFlyover-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/FlyoverKit/FlyoverKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FlyoverKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TwilioFlyover/Pods-TwilioFlyover-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1C919DE621375162008CC300 /* Sources */ = {
@@ -432,9 +551,11 @@
 		};
 		1C919E1621375163008CC300 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1343AB59D0E5F7A2C5468052 /* Pods-TwilioFlyover.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6NUB37727Z;
 				INFOPLIST_FILE = TwilioFlyover/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -449,9 +570,11 @@
 		};
 		1C919E1721375163008CC300 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6D80EBF8A6457CCF9CCDCB69 /* Pods-TwilioFlyover.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6NUB37727Z;
 				INFOPLIST_FILE = TwilioFlyover/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -466,6 +589,7 @@
 		};
 		1C919E1921375163008CC300 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F62BE1BB8CB5FD05E5644232 /* Pods-TwilioFlyoverTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -486,6 +610,7 @@
 		};
 		1C919E1A21375163008CC300 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D7F6399AC9025A658632C2B3 /* Pods-TwilioFlyoverTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -506,6 +631,7 @@
 		};
 		1C919E1C21375163008CC300 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 92FD2E0E1C9666F61CC7C8B4 /* Pods-TwilioFlyoverUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -525,6 +651,7 @@
 		};
 		1C919E1D21375163008CC300 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B1EE2E05349475A06EDAAAF /* Pods-TwilioFlyoverUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
