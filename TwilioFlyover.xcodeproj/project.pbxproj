@@ -10,7 +10,6 @@
 		1C919DEE21375162008CC300 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C919DED21375162008CC300 /* AppDelegate.swift */; };
 		1C919DF021375162008CC300 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C919DEF21375162008CC300 /* ViewController.swift */; };
 		1C919DF321375162008CC300 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C919DF121375162008CC300 /* Main.storyboard */; };
-		1C919DF621375162008CC300 /* TwilioFlyover.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1C919DF421375162008CC300 /* TwilioFlyover.xcdatamodeld */; };
 		1C919DF821375163008CC300 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C919DF721375163008CC300 /* Assets.xcassets */; };
 		1C919DFB21375163008CC300 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C919DF921375163008CC300 /* LaunchScreen.storyboard */; };
 		1C919E0621375163008CC300 /* TwilioFlyoverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C919E0521375163008CC300 /* TwilioFlyoverTests.swift */; };
@@ -44,7 +43,6 @@
 		1C919DED21375162008CC300 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C919DEF21375162008CC300 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1C919DF221375162008CC300 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		1C919DF521375162008CC300 /* TwilioFlyover.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TwilioFlyover.xcdatamodel; sourceTree = "<group>"; };
 		1C919DF721375163008CC300 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1C919DFA21375163008CC300 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1C919DFC21375163008CC300 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -54,6 +52,7 @@
 		1C919E0C21375163008CC300 /* TwilioFlyoverUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TwilioFlyoverUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C919E1021375163008CC300 /* TwilioFlyoverUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwilioFlyoverUITests.swift; sourceTree = "<group>"; };
 		1C919E1221375163008CC300 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1C9324AA21656F3100BA7568 /* FlyoverKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FlyoverKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B1EE2E05349475A06EDAAAF /* Pods-TwilioFlyoverUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwilioFlyoverUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TwilioFlyoverUITests/Pods-TwilioFlyoverUITests.release.xcconfig"; sourceTree = "<group>"; };
 		43F1F8F1D97B39B353567244 /* Pods_TwilioFlyover.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwilioFlyover.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D80EBF8A6457CCF9CCDCB69 /* Pods-TwilioFlyover.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwilioFlyover.release.xcconfig"; path = "Pods/Target Support Files/Pods-TwilioFlyover/Pods-TwilioFlyover.release.xcconfig"; sourceTree = "<group>"; };
@@ -94,6 +93,7 @@
 		163C3BF13217B074D67A2C85 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1C9324AA21656F3100BA7568 /* FlyoverKit.framework */,
 				43F1F8F1D97B39B353567244 /* Pods_TwilioFlyover.framework */,
 				99E2386AE6430362131653DF /* Pods_TwilioFlyoverTests.framework */,
 				0ACC6B5A51EFEA8578497D08 /* Pods_TwilioFlyoverUITests.framework */,
@@ -132,7 +132,6 @@
 				1C919DF721375163008CC300 /* Assets.xcassets */,
 				1C919DF921375163008CC300 /* LaunchScreen.storyboard */,
 				1C919DFC21375163008CC300 /* Info.plist */,
-				1C919DF421375162008CC300 /* TwilioFlyover.xcdatamodeld */,
 			);
 			path = TwilioFlyover;
 			sourceTree = "<group>";
@@ -240,13 +239,16 @@
 				TargetAttributes = {
 					1C919DE921375162008CC300 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 					};
 					1C919E0021375163008CC300 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 						TestTargetID = 1C919DE921375162008CC300;
 					};
 					1C919E0B21375163008CC300 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 						TestTargetID = 1C919DE921375162008CC300;
 					};
 				};
@@ -378,7 +380,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C919DF621375162008CC300 /* TwilioFlyover.xcdatamodeld in Sources */,
 				1C919DF021375162008CC300 /* ViewController.swift in Sources */,
 				1C919DEE21375162008CC300 /* AppDelegate.swift in Sources */,
 			);
@@ -563,7 +564,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = lsie.TwilioFlyover;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -582,7 +583,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = lsie.TwilioFlyover;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -602,7 +603,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = lsie.TwilioFlyoverTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TwilioFlyover.app/TwilioFlyover";
 			};
@@ -623,7 +624,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = lsie.TwilioFlyoverTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TwilioFlyover.app/TwilioFlyover";
 			};
@@ -643,7 +644,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = lsie.TwilioFlyoverUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = TwilioFlyover;
 			};
@@ -663,7 +664,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = lsie.TwilioFlyoverUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = TwilioFlyover;
 			};
@@ -709,19 +710,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		1C919DF421375162008CC300 /* TwilioFlyover.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				1C919DF521375162008CC300 /* TwilioFlyover.xcdatamodel */,
-			);
-			currentVersion = 1C919DF521375162008CC300 /* TwilioFlyover.xcdatamodel */;
-			path = TwilioFlyover.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 1C919DE221375162008CC300 /* Project object */;
 }

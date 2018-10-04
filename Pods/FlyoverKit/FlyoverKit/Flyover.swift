@@ -50,7 +50,7 @@ extension MKMapView: Flyover {
 extension MKMapPoint: Flyover {
     /// The flyover coordinate
     public var coordinate: CLLocationCoordinate2D {
-        return MKCoordinateForMapPoint(self)
+        return self.coordinate
     }
 }
 extension MKCoordinateRegion: Flyover {

@@ -50,7 +50,7 @@ open class FlyoverCamera {
     }()
     
     /// The animation curve
-    open let curve: UIViewAnimationCurve = .linear
+    public let curve: UIView.AnimationCurve = .linear
     
     /// The current coordinate
     private var coordinate: CLLocationCoordinate2D?

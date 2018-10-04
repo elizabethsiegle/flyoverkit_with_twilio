@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -67,7 +67,7 @@
 		28532A6402F0DE0FD1D00B0C7871511D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		286A5282F4F996696A541BB12B9AF877 /* Pods-TwilioFlyoverUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TwilioFlyoverUITests.release.xcconfig"; sourceTree = "<group>"; };
 		29A1BF29E85F33ED0568359CF2E60DA3 /* Pods-TwilioFlyoverUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TwilioFlyoverUITests-dummy.m"; sourceTree = "<group>"; };
-		34A55D8355821CE3889F7D2DB6AC6B05 /* Pods_TwilioFlyoverTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_TwilioFlyoverTests.framework; path = "Pods-TwilioFlyoverTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		34A55D8355821CE3889F7D2DB6AC6B05 /* Pods_TwilioFlyoverTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwilioFlyoverTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		380D1BF4175593DB5699D5D737EDAFA7 /* Pods-TwilioFlyover-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TwilioFlyover-dummy.m"; sourceTree = "<group>"; };
 		3B6E28B6E4367BDB7C17DB57D6CFF750 /* Pods-TwilioFlyover.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TwilioFlyover.release.xcconfig"; sourceTree = "<group>"; };
 		3DB480696BD7E469ECFE18F3676A7406 /* Pods-TwilioFlyover.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TwilioFlyover.debug.xcconfig"; sourceTree = "<group>"; };
@@ -87,9 +87,9 @@
 		7EB8D36DD4BC99200BCD02FFF91E7D0A /* Pods-TwilioFlyover-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TwilioFlyover-acknowledgements.markdown"; sourceTree = "<group>"; };
 		8272AA839136CB214AEB36C2E2B59C3E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8426E61B14AF1C5035D99D937763BC89 /* FlyoverKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FlyoverKit.xcconfig; sourceTree = "<group>"; };
-		8EB17529AD83241DC01DA12DEA6D6BDA /* Pods_TwilioFlyover.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_TwilioFlyover.framework; path = "Pods-TwilioFlyover.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8EB17529AD83241DC01DA12DEA6D6BDA /* Pods_TwilioFlyover.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwilioFlyover.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		903CC2464E58CDE14AA8CEA241D03B63 /* Pods-TwilioFlyoverUITests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TwilioFlyoverUITests-resources.sh"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		95DA2861CFCF2BFFB3BF4ECC1DBC305E /* FlyoverMapView+MapType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "FlyoverMapView+MapType.swift"; path = "FlyoverKit/MapView/FlyoverMapView+MapType.swift"; sourceTree = "<group>"; };
 		95F0EA215E99FD0275243E5DF7AFD2FA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		A7B609748D5D3EC5F99BD2A0CE24563D /* Pods-TwilioFlyoverTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TwilioFlyoverTests-dummy.m"; sourceTree = "<group>"; };
@@ -100,8 +100,8 @@
 		C535F72C9288D247A2B6CD3C5DFFC2FF /* Pods-TwilioFlyover-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TwilioFlyover-resources.sh"; sourceTree = "<group>"; };
 		CD89712FD893DB0E955B54C6E2C0DFCC /* FlyoverKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FlyoverKit-dummy.m"; sourceTree = "<group>"; };
 		CDDC7BE7B01203EE78340E09FE11C1E4 /* Pods-TwilioFlyoverUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TwilioFlyoverUITests-frameworks.sh"; sourceTree = "<group>"; };
-		D07A6C9E6CDE1B7FDA0644A0501EC448 /* FlyoverKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FlyoverKit.framework; path = FlyoverKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D42602CAF284140C4025CF1BE1E22701 /* Pods_TwilioFlyoverUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_TwilioFlyoverUITests.framework; path = "Pods-TwilioFlyoverUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D07A6C9E6CDE1B7FDA0644A0501EC448 /* FlyoverKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FlyoverKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D42602CAF284140C4025CF1BE1E22701 /* Pods_TwilioFlyoverUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwilioFlyoverUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D58CEF8319342D48A6E7E17F6F4C81FB /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAEE9C6A71260E2E16B5326A43DE4651 /* Pods-TwilioFlyover-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TwilioFlyover-frameworks.sh"; sourceTree = "<group>"; };
 		DC31631364D1AA73CB3B03AEFAD4E047 /* Pods-TwilioFlyoverTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TwilioFlyoverTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -193,7 +193,6 @@
 				648FB51D48CA0D51F74EC8924F1A9390 /* Info.plist */,
 				E78EB43413A9BD6AB1E8AD6FD8058558 /* Support Files */,
 			);
-			name = FlyoverKit;
 			path = FlyoverKit;
 			sourceTree = "<group>";
 		};
@@ -415,6 +414,11 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0930;
+				TargetAttributes = {
+					101EB110E62D08262AE7DD6EC6CB6F7F = {
+						LastSwiftMigration = 1000;
+					};
+				};
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -520,11 +524,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-TwilioFlyover/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-TwilioFlyover/Pods-TwilioFlyover.modulemap";
 				OTHER_LDFLAGS = "";
@@ -560,11 +560,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-TwilioFlyoverUITests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-TwilioFlyoverUITests/Pods-TwilioFlyoverUITests.modulemap";
 				OTHER_LDFLAGS = "";
@@ -598,11 +594,7 @@
 				INFOPLIST_FILE = "Target Support Files/FlyoverKit/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/FlyoverKit/FlyoverKit.modulemap";
 				PRODUCT_MODULE_NAME = FlyoverKit;
 				PRODUCT_NAME = FlyoverKit;
@@ -610,7 +602,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -698,11 +690,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-TwilioFlyoverTests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-TwilioFlyoverTests/Pods-TwilioFlyoverTests.modulemap";
 				OTHER_LDFLAGS = "";
@@ -736,11 +724,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-TwilioFlyoverTests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-TwilioFlyoverTests/Pods-TwilioFlyoverTests.modulemap";
 				OTHER_LDFLAGS = "";
@@ -775,11 +759,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-TwilioFlyover/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-TwilioFlyover/Pods-TwilioFlyover.modulemap";
 				OTHER_LDFLAGS = "";
@@ -815,11 +795,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-TwilioFlyoverUITests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-TwilioFlyoverUITests/Pods-TwilioFlyoverUITests.modulemap";
 				OTHER_LDFLAGS = "";
@@ -854,11 +830,7 @@
 				INFOPLIST_FILE = "Target Support Files/FlyoverKit/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/FlyoverKit/FlyoverKit.modulemap";
 				PRODUCT_MODULE_NAME = FlyoverKit;
 				PRODUCT_NAME = FlyoverKit;
@@ -866,7 +838,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
