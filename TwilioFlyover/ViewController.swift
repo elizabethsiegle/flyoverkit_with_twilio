@@ -9,22 +9,19 @@
 import UIKit
 import FlyoverKit
 import MapKit
-import CoreLocation
 import Speech
 
-class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, SFSpeechRecognizerDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDelegate {
     
     var userInputLoc = FlyoverAwesomePlace.parisEiffelTower //init
-    let speechRecognizer = SFSpeechRecognizer()
+    let speechRecognizer: SFSpeechRecognizer? = SFSpeechRecognizer(locale: Locale.init(identifier: "en-US")) //other languages
+    //generate recognition tasks, return results, handle authorization and configure locales
     var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     var recognitionTask: SFSpeechRecognitionTask?
     let audioEngine = AVAudioEngine()
     
 
     @IBOutlet weak var mapView: MKMapView!
-    var locationManager: CLLocationManager = CLLocationManager()
-    var startLoc: CLLocation!
-    
     @IBOutlet weak var recordButton: UIButton!
 
     @IBOutlet weak var voiceLbl: UILabel!
@@ -50,13 +47,34 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 buttonState = false
                 print("Speech recognition not supported on this device")
             }
-            DispatchQueue.main.async { // 6
+            DispatchQueue.main.async {
                 self.recordButton.isEnabled = buttonState
             }
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
+    }
+    
+    func mapSetUp() {
+        let topMargin:CGFloat = view.frame.size.height - 100
+        let mapWidth:CGFloat = view.frame.size.width - 40
+        let mapHeight:CGFloat = view.frame.size.height/3
+        
+        self.mapView.frame = CGRect(x: self.view.center.x - mapWidth, y: topMargin - 250, width: mapWidth, height: mapHeight)
+        let camera = FlyoverCamera(mapView: self.mapView, configuration: FlyoverCamera.Configuration(duration: 4.0, altitude: 300, pitch: 45.0, headingStep: 20.0))
+        camera.start(flyover: self.userInputLoc) //init
+        self.mapView.mapType = .hybridFlyover
+        self.mapView.showsBuildings = true
+        self.mapView.isZoomEnabled = true
+        self.mapView.isScrollEnabled = true
+        
+        self.mapView.center.x = self.view.center.x
+        self.mapView.center.y = self.view.center.y/2
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(10), execute: {
+            camera.stop()
+        })
+        self.view.addSubview(self.mapView) //need this or tries to like recalibrate
     }
     
     override func didReceiveMemoryWarning() {
@@ -76,7 +94,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
     }
     func startRecording() {
-        if recognitionTask != nil {
+        if recognitionTask != nil { //created when request kicked off by the recognizer. used to track progress of a transcription or cancel it
             recognitionTask?.cancel()
             recognitionTask = nil
         }
@@ -89,7 +107,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             print("Failed to setup audio session")
         }
         
-        recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
+        recognitionRequest = SFSpeechAudioBufferRecognitionRequest() //read from buffer
         
         let inputNode = audioEngine.inputNode
         
@@ -102,7 +120,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) {
             res, err in
             var isLast = false
-            if res != nil {
+            if res != nil { //res contains transcription of a chunk of audio, corresponding to a single word usually
                 isLast = (res?.isFinal)!
             }
             
@@ -112,9 +130,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 
                 self.recognitionRequest = nil
                 self.recognitionTask = nil
-                let topMargin:CGFloat = self.view.frame.size.height - 100
-                let mapWidth:CGFloat = self.view.frame.size.width - 40
-                let mapHeight:CGFloat = self.view.frame.size.height/3
                 
                 self.recordButton.isEnabled = true
                 let bestStr = res?.bestTranscription.formattedString
@@ -160,8 +175,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                         self.userInputLoc = FlyoverAwesomePlace.neuschwansteinCastle
                     case "Hamburg Philharmonic":
                         self.userInputLoc = FlyoverAwesomePlace.hamburgElbPhilharmonic
-                case "Hamburger philharmonic":
-                    self.userInputLoc = FlyoverAwesomePlace.hamburgElbPhilharmonic
+                    case "Hamburger philharmonic":
+                        self.userInputLoc = FlyoverAwesomePlace.hamburgElbPhilharmonic
                     case "Muenster Castle":
                         self.userInputLoc = FlyoverAwesomePlace.muensterCastle
                     case "Colosseum":
@@ -181,20 +196,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                     default:
                         self.userInputLoc = FlyoverAwesomePlace.newYorkStatueOfLiberty
                 }
-                self.mapView.frame = CGRect(x: self.view.center.x - mapWidth, y: topMargin - 250, width: mapWidth, height: mapHeight)
-                let camera = FlyoverCamera(mapView: self.mapView, configuration: FlyoverCamera.Configuration(duration: 10.0, altitude: 300, pitch: 60.0, headingStep: 20.0))
-                camera.start(flyover: self.userInputLoc)
-                self.mapView.mapType = .hybridFlyover
-                self.mapView.showsBuildings = true
-                self.mapView.isZoomEnabled = true
-                self.mapView.isScrollEnabled = true
-
-                self.mapView.center.x = self.view.center.x
-                self.mapView.center.y = self.view.center.y/2
-                self.view.addSubview(self.mapView)
-                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(10), execute: {
-                    camera.stop()
-                })
+                self.mapSetUp()
+               
             }
         }
         let format = inputNode.outputFormat(forBus: 0)
@@ -211,14 +214,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
         
     }
-    func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
-        if available {
-            recordButton.isEnabled = true
-        } else {
-            recordButton.isEnabled = false
-        }
-    }
-
 }
 
 

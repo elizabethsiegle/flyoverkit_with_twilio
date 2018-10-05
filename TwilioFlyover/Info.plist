@@ -3,11 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>Speak and watch your words become text or say a color to see the grey box change colors.</string>
+	<string>Say a monument and watch your words become text and the map go to said monument</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Your speech will be detected after tapping the start button.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>The application uses this information to show you your location</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
