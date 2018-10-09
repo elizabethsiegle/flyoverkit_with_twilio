@@ -62,7 +62,7 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
         let mapHeight:CGFloat = view.frame.size.height/3
         
         self.mapView.frame = CGRect(x: self.view.center.x - mapWidth, y: topMargin - 250, width: mapWidth, height: mapHeight)
-        let camera = FlyoverCamera(mapView: self.mapView, configuration: FlyoverCamera.Configuration(duration: 4.0, altitude: 300, pitch: 45.0, headingStep: 20.0))
+        let camera = FlyoverCamera(mapView: self.mapView, configuration: FlyoverCamera.Configuration(duration: 6.0, altitude: 300, pitch: 45.0, headingStep: 20.0))
         camera.start(flyover: self.userInputLoc) //init
         self.mapView.mapType = .hybridFlyover
         self.mapView.showsBuildings = true
@@ -71,7 +71,7 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
         
         self.mapView.center.x = self.view.center.x
         self.mapView.center.y = self.view.center.y/2
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(10), execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(6), execute: {
             camera.stop()
         })
         self.view.addSubview(self.mapView) //need this or tries to like recalibrate
