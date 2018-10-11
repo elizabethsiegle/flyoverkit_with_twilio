@@ -340,10 +340,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-TwilioFlyover/Pods-TwilioFlyover-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/FlyoverKit/FlyoverKit.framework",
+				"${PODS_ROOT}/TwilioVideo/Build/iOS/TwilioVideo.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FlyoverKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwilioVideo.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
