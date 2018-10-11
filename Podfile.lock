@@ -1,16 +1,20 @@
 PODS:
   - FlyoverKit (1.0.0)
+  - TwilioVideo (2.5.0)
 
 DEPENDENCIES:
   - FlyoverKit (~> 1.0.0)
+  - TwilioVideo
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - FlyoverKit
+    - TwilioVideo
 
 SPEC CHECKSUMS:
   FlyoverKit: 9d3c26bd1bf86fdc921d6be6680fa53b721b659f
+  TwilioVideo: 429320eacdc954cd38546e5afe40e4f3ce848931
 
-PODFILE CHECKSUM: bb31e115986cdb3f2da405d84dd4b188f47c5946
+PODFILE CHECKSUM: 9483ea90cd2d5799a03148edcd9998872558c193
 
 COCOAPODS: 1.5.3

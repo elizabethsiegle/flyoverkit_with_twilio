@@ -5,6 +5,8 @@ target 'TwilioFlyover' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
   pod 'FlyoverKit', '~> 1.0.0'
+  # added
+  pod 'TwilioVideo'
   # Pods for TwilioFlyover
 
   target 'TwilioFlyoverTests' do
