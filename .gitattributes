@@ -1,1 +1,4 @@
+*.framework filter=lfs diff=lfs merge=lfs -text
+TwilioVideo filter=lfs diff=lfs merge=lfs -text
+*framework/Pods/TwilioVideo/Build/iOS/TwilioVideo.framework/TwilioVideo filter=lfs diff=lfs merge=lfs -text
 Pods/TwilioVideo/Build/iOS/TwilioVideo.framework/TwilioVideo filter=lfs diff=lfs merge=lfs -text
