@@ -1,6 +1,0 @@
-framework module Pods_TwilioFlyoverUITests {
-  umbrella header "Pods-TwilioFlyoverUITests-umbrella.h"
-
-  export *
-  module * { export * }
-}
