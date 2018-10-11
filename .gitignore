@@ -3,5 +3,6 @@
 Podfile
 Pod*
 Pods/
+Pods/TwilioVideo/Build/iOS/TwilioVideo.framework/*
 Pods/TwilioVideo/Build/iOS/TwilioVideo.framework/TwilioVideo
 Pods/TwilioVideo/Build/iOS/TwilioVideo.framework/TwilioVideo
