@@ -19,7 +19,7 @@ target 'TwilioFlyover' do
       
       # Find path to TwilioVideo dependency
       path = Dir.pwd
-      framework_path = "#{path}/Pods/TwilioVideo/TwilioVideo.framework/TwilioVideo"
+      framework_path = "TwilioVideo/TwilioVideo.framework/TwilioVideo"
       
       # Strip Bitcode sections from the framework
       strip_command = "#{bitcode_strip_path} #{framework_path} -m -o #{framework_path}"
