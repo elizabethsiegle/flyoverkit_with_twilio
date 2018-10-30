@@ -122,6 +122,7 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
         let height = traits.horizontalSizeClass == UIUserInterfaceSizeClass.regular ? 188 : 120;
         return CGRect(x: 0, y: 0, width: width, height: height)
     }
+    
 
     @IBAction func recordButtonClicked(_ sender: Any) {
         if audioEngine.isRunning {
@@ -140,34 +141,6 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
     
     override func viewWillAppear(_ animated: Bool) {
     }
-    
-    func mapSetUp() {
-        let topMargin:CGFloat = view.frame.size.height - 100
-        let mapWidth:CGFloat = view.frame.size.width - 40
-        let mapHeight:CGFloat = view.frame.size.height/3
-        
-        self.mapView.frame = CGRect(x: self.view.center.x - mapWidth, y: topMargin - 250, width: mapWidth, height: mapHeight)
-        let camera = FlyoverCamera(mapView: self.mapView, configuration: FlyoverCamera.Configuration(duration: 6.0, altitude: 300, pitch: 45.0, headingStep: 20.0))
-        camera.start(flyover: self.userInputLoc) //init
-        self.mapView.mapType = .hybridFlyover
-        self.mapView.showsBuildings = true
-        self.mapView.isZoomEnabled = true
-        self.mapView.isScrollEnabled = true
-        
-        self.mapView.center.x = self.view.center.x
-        self.mapView.center.y = self.view.center.y/2
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(6), execute: {
-            camera.stop()
-        })
-        self.view.addSubview(self.mapView) //need this or tries to like recalibrate
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-   
     func startRecording() {
         if recognitionTask != nil { //created when request kicked off by the recognizer. used to track progress of a transcription or cancel it
             recognitionTask?.cancel()
@@ -208,69 +181,69 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
                 let bestStr = res?.bestTranscription.formattedString
                 self.voiceLbl.text = bestStr
                 switch bestStr {
-                    case "Statue of Liberty":
-                        self.userInputLoc = FlyoverAwesomePlace.newYorkStatueOfLiberty
-                    case "New York":
-                        self.userInputLoc = FlyoverAwesomePlace.newYork
-                    case "Golden Gate bridge":
-                        self.userInputLoc = FlyoverAwesomePlace.sanFranciscoGoldenGateBridge
-                    case "Central park":
-                        self.userInputLoc = FlyoverAwesomePlace.centralParkNY
-                    case "Googolplex":
-                        self.userInputLoc = FlyoverAwesomePlace.googlePlex
-                    case "Miami Beach":
-                        self.userInputLoc = FlyoverAwesomePlace.miamiBeach
-                    case "Laguna Beach":
-                        self.userInputLoc = FlyoverAwesomePlace.lagunaBeach
-                    case "Griffith Observatory":
-                        self.userInputLoc = FlyoverAwesomePlace.griffithObservatory
-                    case "Luxor Resort":
-                        self.userInputLoc = FlyoverAwesomePlace.luxorResortLasVegas
-                    case "Luxury Resort":
-                        self.userInputLoc = FlyoverAwesomePlace.luxorResortLasVegas
-                    case "Apple headquarters":
-                        self.userInputLoc = FlyoverAwesomePlace.appleHeadquarter
-                    case "Apple HQ":
-                        self.userInputLoc = FlyoverAwesomePlace.appleHeadquarter
-                    case "Brandenburger Gate":
-                        self.userInputLoc = FlyoverAwesomePlace.berlinBrandenburgerGate
-                    case "Brandenburg Gate":
-                        self.userInputLoc = FlyoverAwesomePlace.berlinBrandenburgerGate
-                    case "Brandenburg gate":
-                        self.userInputLoc = FlyoverAwesomePlace.berlinBrandenburgerGate
-                    case "Hamburg town hall":
-                        self.userInputLoc = FlyoverAwesomePlace.hamburgTownHall
-                    case "Cologne cathedral":
-                        self.userInputLoc = FlyoverAwesomePlace.cologneCathedral
-                    case "Munich Church":
-                        self.userInputLoc = FlyoverAwesomePlace.munichCurch
-                    case "Neuschwanstein Castle":
-                        self.userInputLoc = FlyoverAwesomePlace.neuschwansteinCastle
-                    case "Hamburg Philharmonic":
-                        self.userInputLoc = FlyoverAwesomePlace.hamburgElbPhilharmonic
-                    case "Hamburger philharmonic":
-                        self.userInputLoc = FlyoverAwesomePlace.hamburgElbPhilharmonic
-                    case "Muenster Castle":
-                        self.userInputLoc = FlyoverAwesomePlace.muensterCastle
-                    case "Colosseum":
-                        self.userInputLoc = FlyoverAwesomePlace.romeColosseum
-                    case "Piazza di Trevi":
-                        self.userInputLoc = FlyoverAwesomePlace.piazzaDiTrevi
-                    case "Sagrada Familia":
-                        self.userInputLoc = FlyoverAwesomePlace.sagradaFamiliaSpain
-                    case "Big Ben":
-                        self.userInputLoc = FlyoverAwesomePlace.londonBigBen
-                    case "London eye":
-                        self.userInputLoc = FlyoverAwesomePlace.londonEye
-                    case "Sydney opera House":
-                        self.userInputLoc = FlyoverAwesomePlace.sydneyOperaHouse
-                    case "Eiffel Tower":
-                        self.userInputLoc = FlyoverAwesomePlace.parisEiffelTower
-                    default:
-                        self.userInputLoc = FlyoverAwesomePlace.newYorkStatueOfLiberty
+                case "Statue of Liberty":
+                    self.userInputLoc = FlyoverAwesomePlace.newYorkStatueOfLiberty
+                case "New York":
+                    self.userInputLoc = FlyoverAwesomePlace.newYork
+                case "Golden Gate bridge":
+                    self.userInputLoc = FlyoverAwesomePlace.sanFranciscoGoldenGateBridge
+                case "Central park":
+                    self.userInputLoc = FlyoverAwesomePlace.centralParkNY
+                case "Googolplex":
+                    self.userInputLoc = FlyoverAwesomePlace.googlePlex
+                case "Miami Beach":
+                    self.userInputLoc = FlyoverAwesomePlace.miamiBeach
+                case "Laguna Beach":
+                    self.userInputLoc = FlyoverAwesomePlace.lagunaBeach
+                case "Griffith Observatory":
+                    self.userInputLoc = FlyoverAwesomePlace.griffithObservatory
+                case "Luxor Resort":
+                    self.userInputLoc = FlyoverAwesomePlace.luxorResortLasVegas
+                case "Luxury Resort":
+                    self.userInputLoc = FlyoverAwesomePlace.luxorResortLasVegas
+                case "Apple headquarters":
+                    self.userInputLoc = FlyoverAwesomePlace.appleHeadquarter
+                case "Apple HQ":
+                    self.userInputLoc = FlyoverAwesomePlace.appleHeadquarter
+                case "Brandenburger Gate":
+                    self.userInputLoc = FlyoverAwesomePlace.berlinBrandenburgerGate
+                case "Brandenburg Gate":
+                    self.userInputLoc = FlyoverAwesomePlace.berlinBrandenburgerGate
+                case "Brandenburg gate":
+                    self.userInputLoc = FlyoverAwesomePlace.berlinBrandenburgerGate
+                case "Hamburg town hall":
+                    self.userInputLoc = FlyoverAwesomePlace.hamburgTownHall
+                case "Cologne cathedral":
+                    self.userInputLoc = FlyoverAwesomePlace.cologneCathedral
+                case "Munich Church":
+                    self.userInputLoc = FlyoverAwesomePlace.munichCurch
+                case "Neuschwanstein Castle":
+                    self.userInputLoc = FlyoverAwesomePlace.neuschwansteinCastle
+                case "Hamburg Philharmonic":
+                    self.userInputLoc = FlyoverAwesomePlace.hamburgElbPhilharmonic
+                case "Hamburger philharmonic":
+                    self.userInputLoc = FlyoverAwesomePlace.hamburgElbPhilharmonic
+                case "Muenster Castle":
+                    self.userInputLoc = FlyoverAwesomePlace.muensterCastle
+                case "Colosseum":
+                    self.userInputLoc = FlyoverAwesomePlace.romeColosseum
+                case "Piazza di Trevi":
+                    self.userInputLoc = FlyoverAwesomePlace.piazzaDiTrevi
+                case "Sagrada Familia":
+                    self.userInputLoc = FlyoverAwesomePlace.sagradaFamiliaSpain
+                case "Big Ben":
+                    self.userInputLoc = FlyoverAwesomePlace.londonBigBen
+                case "London eye":
+                    self.userInputLoc = FlyoverAwesomePlace.londonEye
+                case "Sydney opera House":
+                    self.userInputLoc = FlyoverAwesomePlace.sydneyOperaHouse
+                case "Eiffel Tower":
+                    self.userInputLoc = FlyoverAwesomePlace.parisEiffelTower
+                default:
+                    self.userInputLoc = FlyoverAwesomePlace.newYorkStatueOfLiberty
                 }
                 self.mapSetUp()
-               
+                
             }
         }
         let format = inputNode.outputFormat(forBus: 0)
@@ -286,6 +259,31 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
             print("Can't start the engine")
         }
         
+    }
+    func mapSetUp() {
+        let topMargin:CGFloat = view.frame.size.height - 100
+        let mapWidth:CGFloat = view.frame.size.width - 40
+        let mapHeight:CGFloat = view.frame.size.height/3
+        
+        self.mapView.frame = CGRect(x: self.view.center.x - mapWidth, y: topMargin - 250, width: mapWidth, height: mapHeight)
+        let camera = FlyoverCamera(mapView: self.mapView, configuration: FlyoverCamera.Configuration(duration: 6.0, altitude: 300, pitch: 45.0, headingStep: 20.0))
+        camera.start(flyover: self.userInputLoc) //init
+        self.mapView.mapType = .hybridFlyover
+        self.mapView.showsBuildings = true
+        self.mapView.isZoomEnabled = true
+        self.mapView.isScrollEnabled = true
+        
+        self.mapView.center.x = self.view.center.x
+        self.mapView.center.y = self.view.center.y/2
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(6), execute: {
+            camera.stop()
+        })
+        self.view.addSubview(self.mapView) //need this or tries to like recalibrate
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
 }
 
