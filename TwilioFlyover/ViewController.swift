@@ -81,18 +81,6 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    @IBAction func recordButtonClicked(_ sender: Any) {
-        if audioEngine.isRunning {
-            audioEngine.stop()
-            recognitionRequest?.endAudio()
-            recordButton.isEnabled = false
-            self.recordButton.setTitle("Record", for: .normal)
-        } else {
-            startRecording()
-            recordButton.setTitle("Stop", for: .normal)
-        }
-    }
     func startRecording() {
         if recognitionTask != nil { //created when request kicked off by the recognizer. used to track progress of a transcription or cancel it
             recognitionTask?.cancel()
@@ -134,70 +122,39 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
                 self.recordButton.isEnabled = true
                 let bestStr = res?.bestTranscription.formattedString
                 self.voiceLbl.text = bestStr
-                switch bestStr {
-                    case "Statue of Liberty":
-                        self.userInputLoc = FlyoverAwesomePlace.newYorkStatueOfLiberty
-                    case "New York":
-                        self.userInputLoc = FlyoverAwesomePlace.newYork
-                    case "Golden Gate bridge":
-                        self.userInputLoc = FlyoverAwesomePlace.sanFranciscoGoldenGateBridge
-                    case "Central park":
-                        self.userInputLoc = FlyoverAwesomePlace.centralParkNY
-                    case "Googolplex":
-                        self.userInputLoc = FlyoverAwesomePlace.googlePlex
-                    case "Miami Beach":
-                        self.userInputLoc = FlyoverAwesomePlace.miamiBeach
-                    case "Laguna Beach":
-                        self.userInputLoc = FlyoverAwesomePlace.lagunaBeach
-                    case "Griffith Observatory":
-                        self.userInputLoc = FlyoverAwesomePlace.griffithObservatory
-                    case "Luxor Resort":
-                        self.userInputLoc = FlyoverAwesomePlace.luxorResortLasVegas
-                    case "Luxury Resort":
-                        self.userInputLoc = FlyoverAwesomePlace.luxorResortLasVegas
-                    case "Apple headquarters":
-                        self.userInputLoc = FlyoverAwesomePlace.appleHeadquarter
-                    case "Apple HQ":
-                        self.userInputLoc = FlyoverAwesomePlace.appleHeadquarter
-                    case "Brandenburger Gate":
-                        self.userInputLoc = FlyoverAwesomePlace.berlinBrandenburgerGate
-                    case "Brandenburg Gate":
-                        self.userInputLoc = FlyoverAwesomePlace.berlinBrandenburgerGate
-                    case "Brandenburg gate":
-                        self.userInputLoc = FlyoverAwesomePlace.berlinBrandenburgerGate
-                    case "Hamburg town hall":
-                        self.userInputLoc = FlyoverAwesomePlace.hamburgTownHall
-                    case "Cologne cathedral":
-                        self.userInputLoc = FlyoverAwesomePlace.cologneCathedral
-                    case "Munich Church":
-                        self.userInputLoc = FlyoverAwesomePlace.munichCurch
-                    case "Neuschwanstein Castle":
-                        self.userInputLoc = FlyoverAwesomePlace.neuschwansteinCastle
-                    case "Hamburg Philharmonic":
-                        self.userInputLoc = FlyoverAwesomePlace.hamburgElbPhilharmonic
-                    case "Hamburger philharmonic":
-                        self.userInputLoc = FlyoverAwesomePlace.hamburgElbPhilharmonic
-                    case "Muenster Castle":
-                        self.userInputLoc = FlyoverAwesomePlace.muensterCastle
-                    case "Colosseum":
-                        self.userInputLoc = FlyoverAwesomePlace.romeColosseum
-                    case "Piazza di Trevi":
-                        self.userInputLoc = FlyoverAwesomePlace.piazzaDiTrevi
-                    case "Sagrada Familia":
-                        self.userInputLoc = FlyoverAwesomePlace.sagradaFamiliaSpain
-                    case "Big Ben":
-                        self.userInputLoc = FlyoverAwesomePlace.londonBigBen
-                    case "London eye":
-                        self.userInputLoc = FlyoverAwesomePlace.londonEye
-                    case "Sydney opera House":
-                        self.userInputLoc = FlyoverAwesomePlace.sydneyOperaHouse
-                    case "Eiffel Tower":
-                        self.userInputLoc = FlyoverAwesomePlace.parisEiffelTower
-                    default:
-                        self.userInputLoc = FlyoverAwesomePlace.newYorkStatueOfLiberty
-                }
+                var locDict = [
+                    "Statue of Liberty": FlyoverAwesomePlace.newYorkStatueOfLiberty,
+                    "New York":FlyoverAwesomePlace.newYork,
+                    "Golden Gate bridge": FlyoverAwesomePlace.sanFranciscoGoldenGateBridge,
+                    "Central park": FlyoverAwesomePlace.centralParkNY,
+                    "Googolplex": FlyoverAwesomePlace.googlePlex,
+                    "Miami Beach": FlyoverAwesomePlace.miamiBeach,
+                    "Laguna Beach": FlyoverAwesomePlace.lagunaBeach,
+                    "Griffith Observatory": FlyoverAwesomePlace.griffithObservatory,
+                    "Luxor Resort": FlyoverAwesomePlace.luxorResortLasVegas,
+                    "Luxury Resort": FlyoverAwesomePlace.luxorResortLasVegas,
+                    "Apple headquarters": FlyoverAwesomePlace.appleHeadquarter,
+                    "Apple HQ": FlyoverAwesomePlace.appleHeadquarter,
+                    "Brandenburger Gate": FlyoverAwesomePlace.berlinBrandenburgerGate,
+                    "Brandenburg Gate": FlyoverAwesomePlace.berlinBrandenburgerGate,
+                    "Hamburg town hall": FlyoverAwesomePlace.hamburgTownHall,
+                    "Cologne cathedral": FlyoverAwesomePlace.cologneCathedral,
+                    "Munich Church":FlyoverAwesomePlace.munichCurch,
+                    "Neuschwanstein Castle":FlyoverAwesomePlace.neuschwansteinCastle,
+                    "Hamburg Philharmonic":FlyoverAwesomePlace.hamburgElbPhilharmonic,
+                    "Hamburger philharmonic":FlyoverAwesomePlace.hamburgElbPhilharmonic,
+                    "Muenster Castle":FlyoverAwesomePlace.muensterCastle,
+                    "Colosseum":FlyoverAwesomePlace.romeColosseum,
+                    "Piazza di Trevi":FlyoverAwesomePlace.piazzaDiTrevi,
+                    "Sagrada Familia":FlyoverAwesomePlace.sagradaFamiliaSpain,
+                    "Big Ben":FlyoverAwesomePlace.londonBigBen,
+                    "London eye":FlyoverAwesomePlace.londonEye,
+                    "Sydney opera House":FlyoverAwesomePlace.sydneyOperaHouse,
+                    "Eiffel Tower":FlyoverAwesomePlace.parisEiffelTower
+                ]
+                self.userInputLoc = locDict[bestStr!]! //?? FlyoverAwesomePlace.newYorkStatueOfLiberty] //default
                 self.mapSetUp()
-               
+                
             }
         }
         let format = inputNode.outputFormat(forBus: 0)
@@ -214,6 +171,19 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
         }
         
     }
+
+    @IBAction func recordButtonClicked(_ sender: Any) {
+        if audioEngine.isRunning {
+            audioEngine.stop()
+            recognitionRequest?.endAudio()
+            recordButton.isEnabled = false
+            self.recordButton.setTitle("Record", for: .normal)
+        } else {
+            startRecording()
+            recordButton.setTitle("Stop", for: .normal)
+        }
+    }
+   
 }
 
 
