@@ -55,7 +55,6 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         voiceLbl.center.x = self.view.center.x
-        voiceLbl.center.y = 400
         
     }
 

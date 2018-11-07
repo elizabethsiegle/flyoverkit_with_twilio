@@ -29,8 +29,8 @@
                                     <action selector="locButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qfO-Pm-TZt"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Place" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6iC-PF-szf">
-                                <rect key="frame" x="152" y="499" width="70" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Place" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6iC-PF-szf">
+                                <rect key="frame" x="166.5" y="346" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -39,7 +39,8 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="xYn-2D-HES" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Gko-Bw-nTN"/>
-                            <constraint firstItem="6iC-PF-szf" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="MeP-ZN-ATe"/>
+                            <constraint firstItem="6iC-PF-szf" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="OLt-GT-2IM"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="6iC-PF-szf" secondAttribute="bottom" constant="300" id="kng-bi-UNX"/>
                             <constraint firstItem="xYn-2D-HES" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="lAR-XQ-Rdh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
