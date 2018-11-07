@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,15 +22,15 @@
                                 <rect key="frame" x="67" y="85" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="erh-wD-p0v">
-                                <rect key="frame" x="163" y="509" width="49" height="30"/>
-                                <state key="normal" title="Record"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xYn-2D-HES">
+                                <rect key="frame" x="155" y="411" width="64" height="30"/>
+                                <state key="normal" title="Click me!"/>
                                 <connections>
-                                    <action selector="recordButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EIZ-Lt-L87"/>
+                                    <action selector="locButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qfO-Pm-TZt"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Place" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6iC-PF-szf">
-                                <rect key="frame" x="83" y="547" width="224" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Place" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6iC-PF-szf">
+                                <rect key="frame" x="152" y="499" width="70" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -38,16 +38,14 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6iC-PF-szf" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="4EI-Jl-Y4a"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="6iC-PF-szf" secondAttribute="bottom" constant="99" id="Iy2-xJ-SoF"/>
-                            <constraint firstItem="erh-wD-p0v" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Mgc-Ba-spI"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="erh-wD-p0v" secondAttribute="bottom" constant="128" id="qs8-i7-ZjG"/>
+                            <constraint firstItem="xYn-2D-HES" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Gko-Bw-nTN"/>
+                            <constraint firstItem="6iC-PF-szf" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="MeP-ZN-ATe"/>
+                            <constraint firstItem="xYn-2D-HES" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="lAR-XQ-Rdh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="mapView" destination="6Ed-1r-hhO" id="2Si-jO-8R5"/>
-                        <outlet property="recordButton" destination="erh-wD-p0v" id="2cJ-4z-dfb"/>
                         <outlet property="voiceLbl" destination="6iC-PF-szf" id="LnI-We-OnU"/>
                     </connections>
                 </viewController>
