@@ -9,67 +9,15 @@
 import UIKit
 import FlyoverKit
 import MapKit
-import Speech
 
-class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDelegate {
-    
-    var userInputLoc = FlyoverAwesomePlace.parisEiffelTower //init
-    var locArr = [
-        FlyoverAwesomePlace.newYorkStatueOfLiberty,
-        FlyoverAwesomePlace.newYork,
-        FlyoverAwesomePlace.sanFranciscoGoldenGateBridge,
-        FlyoverAwesomePlace.centralParkNY,
-        FlyoverAwesomePlace.googlePlex,
-        FlyoverAwesomePlace.miamiBeach,
-        FlyoverAwesomePlace.lagunaBeach,
-        FlyoverAwesomePlace.griffithObservatory,
-        FlyoverAwesomePlace.luxorResortLasVegas,
-        FlyoverAwesomePlace.appleHeadquarter,
-        FlyoverAwesomePlace.berlinBrandenburgerGate,
-        FlyoverAwesomePlace.hamburgTownHall,
-        FlyoverAwesomePlace.cologneCathedral,
-        FlyoverAwesomePlace.munichCurch,
-        FlyoverAwesomePlace.neuschwansteinCastle,
-        FlyoverAwesomePlace.hamburgElbPhilharmonic,
-        FlyoverAwesomePlace.muensterCastle,
-        FlyoverAwesomePlace.romeColosseum,
-        FlyoverAwesomePlace.piazzaDiTrevi,
-        FlyoverAwesomePlace.sagradaFamiliaSpain,
-        FlyoverAwesomePlace.londonBigBen,
-        FlyoverAwesomePlace.londonEye,
-        FlyoverAwesomePlace.sydneyOperaHouse,
-        FlyoverAwesomePlace.parisEiffelTower
-    ]
-    
-    @IBOutlet weak var voiceLbl: UILabel!
-    
-
-    @IBOutlet weak var mapView: MKMapView!
-    
-    
-    @IBAction func locButtonClicked(_ sender: Any) {
-        self.userInputLoc = locArr.randomElement()!
-        voiceLbl.text = "\(self.userInputLoc)"
-        self.mapSetUp()
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        voiceLbl.center.x = self.view.center.x
-        
-    }
-
-    
-    override func viewWillAppear(_ animated: Bool) {
-    }
-    
+class ViewController: UIViewController, MKMapViewDelegate {
     func mapSetUp() {
         let topMargin:CGFloat = view.frame.size.height - 100
         let mapWidth:CGFloat = view.frame.size.width - 40
         let mapHeight:CGFloat = view.frame.size.height/3
         
         self.mapView.frame = CGRect(x: self.view.center.x - mapWidth, y: topMargin - 250, width: mapWidth, height: mapHeight)
-        let camera = FlyoverCamera(mapView: self.mapView, configuration: FlyoverCamera.Configuration(duration: 6.0, altitude: 300, pitch: 45.0, headingStep: 40.0))
-        camera.start(flyover: self.userInputLoc) //init
+        
         self.mapView.mapType = .hybridFlyover
         self.mapView.showsBuildings = true
         self.mapView.isZoomEnabled = true
@@ -77,11 +25,59 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
         
         self.mapView.center.x = self.view.center.x
         self.mapView.center.y = self.view.center.y/2
+        
+        self.view.addSubview(self.mapView)
+    }
+    
+    let locDict = [
+            FlyoverAwesomePlace.newYorkStatueOfLiberty : "Statue of Liberty",
+            FlyoverAwesomePlace.newYork : "New York",
+            FlyoverAwesomePlace.sanFranciscoGoldenGateBridge : "Golden Gate Bridge",
+            FlyoverAwesomePlace.centralParkNY : "Central Park",
+            FlyoverAwesomePlace.googlePlex: "Googleplex",
+            FlyoverAwesomePlace.miamiBeach: "Miami Beach",
+            FlyoverAwesomePlace.lagunaBeach: "Laguna Beach",
+            FlyoverAwesomePlace.griffithObservatory: "Griffith Observatory",
+            FlyoverAwesomePlace.luxorResortLasVegas : "Luxor Resort",
+            FlyoverAwesomePlace.appleHeadquarter : "Apple HQ",
+            FlyoverAwesomePlace.berlinBrandenburgerGate : "Brandenburger Gate",
+            FlyoverAwesomePlace.hamburgTownHall : "Hamburg Town Hall",
+            FlyoverAwesomePlace.cologneCathedral : "Cologne Cathedral",
+            FlyoverAwesomePlace.munichCurch : "Munich Church",
+            FlyoverAwesomePlace.neuschwansteinCastle : "Neuschwanstein Castle",
+            FlyoverAwesomePlace.hamburgElbPhilharmonic : "Hamburg Philharmonic",
+            FlyoverAwesomePlace.muensterCastle: "Muenster Castle",
+            FlyoverAwesomePlace.romeColosseum : "Rome Colosseum",
+            FlyoverAwesomePlace.piazzaDiTrevi : "Piazza di Trevi",
+            FlyoverAwesomePlace.sagradaFamiliaSpain: "Sagrada Familia",
+            FlyoverAwesomePlace.londonBigBen: "Big Ben",
+            FlyoverAwesomePlace.londonEye: "London Eye",
+            FlyoverAwesomePlace.sydneyOperaHouse: "Sydney Opera House",
+            FlyoverAwesomePlace.parisEiffelTower: "Eiffel Tower"
+        ]
+    
+    @IBOutlet weak var placeLbl: UILabel!
+    @IBOutlet weak var mapView: MKMapView!
+    
+    @IBAction func locButtonClicked(_ sender: Any) {
+        let rand = locDict.randomElement()
+        let camera = FlyoverCamera(mapView: self.mapView, configuration: FlyoverCamera.Configuration(duration: 6.0, altitude: 300, pitch: 45.0, headingStep: 40.0))
+        camera.start(flyover: rand?.key as! Flyover)
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(6), execute: {
             camera.stop()
         })
-        self.view.addSubview(self.mapView) //need this or tries to like recalibrate
+        placeLbl.text = "\(rand!.value)"
     }
+   
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        placeLbl.textAlignment = .center
+        placeLbl.center.x = self.view.center.x
+        self.mapSetUp()
+    }
+    
+   
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
