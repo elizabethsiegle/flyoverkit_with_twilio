@@ -58,7 +58,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var placeLbl: UILabel!
     @IBOutlet weak var mapView: MKMapView!
-    
+    @IBAction func locButton(_ sender: Any) {
+    }
     @IBAction func locButtonClicked(_ sender: Any) {
         let rand = locDict.randomElement()
         let camera = FlyoverCamera(mapView: self.mapView, configuration: FlyoverCamera.Configuration(duration: 6.0, altitude: 300, pitch: 45.0, headingStep: 40.0))

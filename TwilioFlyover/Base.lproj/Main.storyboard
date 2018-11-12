@@ -22,6 +22,7 @@
                                 <rect key="frame" x="155" y="411" width="64" height="30"/>
                                 <state key="normal" title="Click me!"/>
                                 <connections>
+                                    <action selector="locButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Gr3-eJ-7Y0"/>
                                     <action selector="locButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rfg-2o-0W4"/>
                                 </connections>
                             </button>
