@@ -73,7 +73,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         placeLbl.textAlignment = .center
-        placeLbl.center.x = self.view.center.x
+        placeLbl.center.x = self.view.center.x           
         self.mapSetUp()
     }
     
