@@ -44,7 +44,7 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(6), execute: {
             camera.stop()
         })
-        self.view.addSubview(self.mapView) //need this or tries to like recalibrate
+        self.view.addSubview(self.mapView) 
     }
     var locDict = [
         "Statue of Liberty": FlyoverAwesomePlace.newYorkStatueOfLiberty,
@@ -76,6 +76,17 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
         "Sydney opera House":FlyoverAwesomePlace.sydneyOperaHouse,
         "Eiffel Tower":FlyoverAwesomePlace.parisEiffelTower
     ]
+    @IBAction func recordButtonClicked(_ sender: Any) {
+        if audioEngine.isRunning {
+            audioEngine.stop()
+            recognitionRequest?.endAudio()
+            recordButton.isEnabled = false
+            self.recordButton.setTitle("Record", for: .normal)
+        } else {
+            startRecording()
+            recordButton.setTitle("Stop", for: .normal)
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         speechRecognizer?.delegate = self
@@ -101,14 +112,6 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
                 self.recordButton.isEnabled = buttonState
             }
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     func startRecording() {
         if recognitionTask != nil { //created when request kicked off by the recognizer. used to track progress of a transcription or cancel it
@@ -151,9 +154,8 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
                 self.recordButton.isEnabled = true
                 let bestStr = res?.bestTranscription.formattedString
                 self.placeLbl.text = bestStr
-                self.userInputLoc = self.locDict[bestStr!]! //?? FlyoverAwesomePlace.newYorkStatueOfLiberty] //default
+                self.userInputLoc = self.locDict[bestStr!]!
                 self.mapSetUp()
-                
             }
         }
         let format = inputNode.outputFormat(forBus: 0)
@@ -170,22 +172,13 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
         }
         
     }
-
-    @IBAction func recordButtonClicked(_ sender: Any) {
-        if audioEngine.isRunning {
-            audioEngine.stop()
-            recognitionRequest?.endAudio()
-            recordButton.isEnabled = false
-            self.recordButton.setTitle("Record", for: .normal)
-        } else {
-            startRecording()
-            recordButton.setTitle("Stop", for: .normal)
-        }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
    
 }
-
-
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
 	return input.rawValue
