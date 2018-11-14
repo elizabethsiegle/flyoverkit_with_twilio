@@ -10,14 +10,39 @@ import UIKit
 import FlyoverKit
 import MapKit
 import Speech
-
 import TwilioVideo
-import WebKit
-import AVFoundation
+import ReplayKit
 
-class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDelegate, RPScreenRecorderDelegate, TVIRoomDelegate {
+    var locDict = [
+        "Statue of Liberty": FlyoverAwesomePlace.newYorkStatueOfLiberty,
+        "New York": FlyoverAwesomePlace.newYork,
+        "Golden Gate Bridge": FlyoverAwesomePlace.sanFranciscoGoldenGateBridge,
+        "Central Park": FlyoverAwesomePlace.centralParkNY,
+        "Googleplex": FlyoverAwesomePlace.googlePlex,
+        "Miami Beach": FlyoverAwesomePlace.miamiBeach,
+        "Laguna Beach": FlyoverAwesomePlace.lagunaBeach,
+        "Griffith Observatory":FlyoverAwesomePlace.griffithObservatory,
+        "Luxor Resort": FlyoverAwesomePlace.luxorResortLasVegas,
+        "Apple HQ": FlyoverAwesomePlace.appleHeadquarter,
+        "Brandenburger Gate": FlyoverAwesomePlace.berlinBrandenburgerGate,
+        "Hamburg Town Hall": FlyoverAwesomePlace.hamburgTownHall,
+        "Cologne Cathedral": FlyoverAwesomePlace.cologneCathedral,
+        "Munich Church": FlyoverAwesomePlace.munichCurch,
+        "Neuschwanstein Castle": FlyoverAwesomePlace.neuschwansteinCastle,
+        "Hamburg Philharmonic": FlyoverAwesomePlace.hamburgElbPhilharmonic,
+        "Muenster Castle": FlyoverAwesomePlace.muensterCastle,
+        "Rome Colosseum": FlyoverAwesomePlace.romeColosseum,
+        "Piazza di Trevi": FlyoverAwesomePlace.piazzaDiTrevi,
+        "Sagrada Familia": FlyoverAwesomePlace.sagradaFamiliaSpain,
+        "Big Ben": FlyoverAwesomePlace.londonBigBen,
+        "London Eye": FlyoverAwesomePlace.londonEye,
+        "Sydney Opera House": FlyoverAwesomePlace.sydneyOperaHouse,
+        "Eiffel Tower": FlyoverAwesomePlace.parisEiffelTower
+    ]
     var userInputLoc = FlyoverAwesomePlace.parisEiffelTower //init
     let speechRecognizer: SFSpeechRecognizer? = SFSpeechRecognizer(locale: Locale.init(identifier: "en-US")) //other languages
+    
     //generate recognition tasks, return results, handle authorization and configure locales
     var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     var recognitionTask: SFSpeechRecognitionTask?
@@ -28,13 +53,64 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
 
     @IBOutlet weak var voiceLbl: UILabel!
     
-    //twilio video
-    var localVideoTrack: TVILocalVideoTrack?
-    var remoteView: TVIVideoView?
-    var screenCapturer: TVIVideoCapturer?
-    var webNavigation: WKNavigation?
-    // Set this value to 'true' to use ExampleScreenCapturer instead of TVIScreenCapturer.
-    let useExampleCapturer = true
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var broadcastButton: UIButton!
+    // Treat this view as generic, since RPSystemBroadcastPickerView is only available on iOS 12.0 and above.
+    @IBOutlet weak var broadcastPickerView: UIView?
+    @IBOutlet weak var conferenceButton: UIButton?
+    @IBOutlet weak var infoLabel: UILabel?
+    @IBOutlet weak var settingsButton: UIBarButtonItem?
+    
+    // Conference state.
+    var screenTrack: TVILocalVideoTrack?
+    var videoSource: ReplayKitVideoSource?
+    var conferenceRoom: TVIRoom?
+    
+    // Broadcast state. Our extension will capture samples from ReplayKit, and publish them in a Room.
+    var broadcastController: RPBroadcastController?
+    
+    var accessToken: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImN0eSI6InR3aWxpby1mcGE7dj0xIn0.eyJqdGkiOiJTS2ZlYTljNWI4ZDc1MTUzNzc2NmZmOTcwNGE5MmIxZmFlLTE1NDIxNDA1NDQiLCJpc3MiOiJTS2ZlYTljNWI4ZDc1MTUzNzc2NmZmOTcwNGE5MmIxZmFlIiwic3ViIjoiQUNkNzU0NmI5ZWQyMDU1ZmU1NWVlNDIwOWJiMzA0MzU5MSIsImV4cCI6MTU0MjE0NDE0NCwiZ3JhbnRzIjp7ImlkZW50aXR5IjoiTGl6emllJ3MgUGh5c2ljYWwgRGV2aWNlIiwidmlkZW8iOnsicm9vbSI6IkZseW92ZXJLaXQifX19.v1GN-1IJb8_xub2_rctN5x2xw-MKshBUCJEKcyicusk"
+    let accessTokenUrl = "http://127.0.0.1:5000/"
+    
+    static let kBroadcastExtensionBundleId = "com.twilio.ReplayKitExample.BroadcastVideoExtension"
+    static let kBroadcastExtensionSetupUiBundleId = "com.twilio.ReplayKitExample.BroadcastVideoExtensionSetupUI"
+    
+//    static let kStartBroadcastButtonTitle = "Start Broadcast"
+//    static let kInProgressBroadcastButtonTitle = "Broadcasting"
+//    static let kStopBroadcastButtonTitle = "Stop Broadcast"
+//    static let kStartConferenceButtonTitle = "Start Conference"
+//    static let kStopConferenceButtonTitle = "Stop Conference"
+    static let kRecordingAvailableInfo = "Ready to share the screen in a Broadcast (extension), or Conference (in-app)."
+    static let kRecordingNotAvailableInfo = "ReplayKit is not available at the moment. Another app might be recording, or AirPlay may be in use."
+    
+    // An application has a much higher memory limit than an extension. You may choose to deliver full sized buffers instead.
+    static let kDownscaleBuffers = false
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    func mapSetUp() {
+        let topMargin:CGFloat = view.frame.size.height - 100
+        let mapWidth:CGFloat = view.frame.size.width - 40
+        let mapHeight:CGFloat = view.frame.size.height/3
+        
+        self.mapView.frame = CGRect(x: self.view.center.x - mapWidth, y: topMargin - 250, width: mapWidth, height: mapHeight)
+        let camera = FlyoverCamera(mapView: self.mapView, configuration: FlyoverCamera.Configuration(duration: 6.0, altitude: 300, pitch: 45.0, headingStep: 20.0))
+        camera.start(flyover: self.userInputLoc) //init
+        self.mapView.mapType = .hybridFlyover
+        self.mapView.showsBuildings = true
+        self.mapView.isZoomEnabled = true
+        self.mapView.isScrollEnabled = true
+        
+        self.mapView.center.x = self.view.center.x
+        self.mapView.center.y = self.view.center.y/2
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(6), execute: {
+            camera.stop()
+        })
+        self.view.addSubview(self.mapView) //need this or tries to like recalibrate
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,68 +138,24 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
             }
         }
         
-        setupLocalMedia()
-    }
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    
         
-        // Layout the remote video using frame based techniques. It's also possible to do this using autolayout
-        if ((remoteView?.hasVideoData)!) {
-            let dimensions = remoteView?.videoDimensions
-            let remoteRect = remoteViewSize()
-            let aspect = CGSize(width: CGFloat((dimensions?.width)!), height: CGFloat((dimensions?.height)!))
-            let padding : CGFloat = 10.0
-            let boundedRect = AVMakeRect(aspectRatio: aspect, insideRect: remoteRect).integral
-            remoteView?.frame = CGRect(x: self.view.bounds.width - boundedRect.width - padding,
-                                       y: self.view.bounds.height - boundedRect.height - padding,
-                                       width: boundedRect.width,
-                                       height: boundedRect.height)
+        // The setter fires an availability changed event, but we check rather than rely on this implementation detail.
+        RPScreenRecorder.shared().delegate = self
+        checkRecordingAvailability()
+        
+        NotificationCenter.default.addObserver(forName: UIScreen.capturedDidChangeNotification, object: UIScreen.main, queue: OperationQueue.main) { (notification) in
+            if self.broadcastPickerView != nil && self.screenTrack == nil {
+                let isCaptured = UIScreen.main.isCaptured
+            }
         }
-        else {
-            remoteView?.frame = CGRect.zero
+        
+        // Use RPSystemBroadcastPickerView when available (iOS 12+ devices).
+        if #available(iOS 12.0, *) {
+            setupPickerView()
         }
     }
     
-    func setupLocalMedia() {
-        // Setup screen capturer
-        let capturer: TVIVideoCapturer
-        if (useExampleCapturer) {
-            capturer = ScreenCapturer.init(aView: self.mapView!)
-        }
-        else {
-            capturer = TVIScreenCapturer.init(view: self.mapView!)
-        }
-        
-        localVideoTrack = TVILocalVideoTrack.init(capturer: capturer, enabled: true, constraints: nil, name: "Screen")
-        
-        if (localVideoTrack == nil) {
-            presentError(message: "Failed to add screen capturer track!")
-            return;
-        }
-        
-        screenCapturer = capturer;
-        
-        // Setup rendering
-        remoteView = TVIVideoView.init(frame: CGRect.zero, delegate: self)
-        localVideoTrack?.addRenderer(remoteView!)
-        
-        remoteView!.isHidden = true
-        self.view.addSubview(self.remoteView!)
-        self.view.setNeedsLayout()
-    }
-    
-    func presentError( message: String) {
-        print(message)
-    }
-    
-    func remoteViewSize() -> CGRect {
-        let traits = self.traitCollection
-        let width = traits.horizontalSizeClass == UIUserInterfaceSizeClass.regular ? 188 : 160;
-        let height = traits.horizontalSizeClass == UIUserInterfaceSizeClass.regular ? 188 : 120;
-        return CGRect(x: 0, y: 0, width: width, height: height)
-    }
-    
-
     @IBAction func recordButtonClicked(_ sender: Any) {
         if audioEngine.isRunning {
             audioEngine.stop()
@@ -135,12 +167,186 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
             recordButton.setTitle("Stop", for: .normal)
         }
     }
-    override var prefersStatusBarHidden: Bool {
-        return true
+    
+    @available(iOS 12.0, *)
+    func setupPickerView() {
+        // Swap the button for an RPSystemBroadcastPickerView.
+        #if !targetEnvironment(simulator)
+        let pickerView = RPSystemBroadcastPickerView(frame: CGRect(x: 0,
+                                                                   y: 0,
+                                                                   width: view.bounds.width,
+                                                                   height: 80))
+        pickerView.translatesAutoresizingMaskIntoConstraints = false
+        pickerView.preferredExtension = ViewController.kBroadcastExtensionBundleId
+
+        view.addSubview(pickerView)
+
+        self.broadcastPickerView = pickerView
+        #endif
+    }
+
+    
+    //MARK: TVIRoomDelegate
+    func didConnect(to room: TVIRoom) {
+        print("Connected to Room: ", room)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    func room(_ room: TVIRoom, didFailToConnectWithError error: Error) {
+        stopConference(error: error)
+        print("Failed to connect with error: ", error)
     }
+    
+    func room(_ room: TVIRoom, didDisconnectWithError error: Error?) {
+        if let error = error {
+            print("Disconnected with error: ", error)
+        }
+        
+        if self.screenTrack != nil {
+            stopConference(error: error)
+        } else {
+            conferenceRoom = nil
+        }
+    }
+    
+    //MARK: RPScreenRecorderDelegate
+    func screenRecorderDidChangeAvailability(_ screenRecorder: RPScreenRecorder) {
+        // Assume we will get an error raised if we are actively broadcasting / capturing and access is "stolen".
+        if (self.broadcastController == nil && screenTrack == nil) {
+            checkRecordingAvailability()
+        }
+    }
+    
+    //MARK: Private
+    func checkRecordingAvailability() {
+        let isScreenRecordingAvailable = RPScreenRecorder.shared().isAvailable
+    }
+    
+    func stopConference(error: Error?) {
+        // Stop recording the screen.
+        let recorder = RPScreenRecorder.shared()
+        recorder.stopCapture { (captureError) in
+            if let error = captureError {
+                print("Screen capture stop error: ", error as Any)
+            } else {
+                print("Screen capture stopped.")
+                DispatchQueue.main.async {
+                    if let picker = self.broadcastPickerView {
+                        picker.isHidden = false
+                        self.broadcastButton.isHidden = false
+                    } else {
+                        self.broadcastButton.isEnabled = true
+                    }
+                    self.spinner.stopAnimating()
+                    
+                    self.videoSource = nil
+                    self.screenTrack = nil
+                    
+                    if let userError = error {
+                        self.infoLabel?.text = userError.localizedDescription
+                    }
+                }
+            }
+        }
+        
+        if let room = conferenceRoom,
+            room.state == TVIRoomState.connected {
+            room.disconnect()
+        } else {
+            conferenceRoom = nil
+        }
+    }
+    
+    func startConference() {
+        if self.screenTrack != nil {
+            stopConference(error: nil)
+        } else {
+            startConference()
+        }
+       
+        
+        // Start recording the screen.
+        let recorder = RPScreenRecorder.shared()
+        recorder.isMicrophoneEnabled = false
+        recorder.isCameraEnabled = false
+        
+        // Our source produces either downscaled buffers with smoother motion, or an HD screen recording.
+        videoSource = ReplayKitVideoSource(isScreencast: !ViewController.kDownscaleBuffers)
+        let constraints = TVIVideoConstraints.init { (builder) in
+            if (ViewController.kDownscaleBuffers) {
+                builder.maxSize = CMVideoDimensions(width: Int32(ReplayKitVideoSource.kDownScaledMaxWidthOrHeight),
+                                                    height: Int32(ReplayKitVideoSource.kDownScaledMaxWidthOrHeight))
+            } else {
+                builder.minSize = CMVideoDimensions(width: Int32(ReplayKitVideoSource.kDownScaledMaxWidthOrHeight + 1),
+                                                    height: Int32(ReplayKitVideoSource.kDownScaledMaxWidthOrHeight + 1))
+                var screenSize = UIScreen.main.bounds.size
+                screenSize.width *= UIScreen.main.nativeScale
+                screenSize.height *= UIScreen.main.nativeScale
+                builder.maxSize = CMVideoDimensions(width: Int32(screenSize.width),
+                                                    height: Int32(screenSize.height))
+            }
+        }
+        screenTrack = TVILocalVideoTrack(capturer: videoSource!,
+                                         enabled: true,
+                                         constraints: constraints,
+                                         name: "Screen")
+        
+        recorder.startCapture(handler: { (sampleBuffer, type, error) in
+            if error != nil {
+                print("Capture error: ", error as Any)
+                return
+            }
+            
+            switch type {
+            case RPSampleBufferType.video:
+                self.videoSource?.processVideoSampleBuffer(sampleBuffer)
+                break
+            case RPSampleBufferType.audioApp:
+                break
+            case RPSampleBufferType.audioMic:
+                // We use `TVIDefaultAudioDevice` to capture and playback audio for conferencing.
+                break
+            }
+            
+        }) { (error) in
+            if error != nil {
+                print("Screen capture error: ", error as Any)
+            } else {
+                print("Screen capture started.")
+            }
+        }
+    }
+    
+//    func connectToRoom(name: String) {
+//        // Configure access token either from server or manually.
+//        // If the default wasn't changed, try fetching from server.
+////        if (accessToken == "TWILIO_ACCESS_TOKEN" || accessToken.isEmpty) {
+////            do {
+////                accessToken = try TokenUtils.fetchToken(url: accessTokenUrl)
+////            } catch {
+////                stopConference(error: error)
+////                return
+////            }
+//       // }
+//
+//        // Preparing the connect options with the access token that we fetched (or hardcoded).
+//        let connectOptions = TVIConnectOptions.init(token: self.accessToken) { (builder) in
+//
+//            builder.audioTracks = [TVILocalAudioTrack()!]
+//
+//            if let videoTrack = self.screenTrack {
+//                builder.videoTracks = [videoTrack]
+//            }
+//
+//            if (!name.isEmpty) {
+//                builder.roomName = name
+//            }
+//        }
+//
+//        // Connect to the Room using the options we provided.
+//        conferenceRoom = TwilioVideo.connect(with: connectOptions, delegate: self)
+//    }
+
+
     func startRecording() {
         if recognitionTask != nil { //created when request kicked off by the recognizer. used to track progress of a transcription or cancel it
             recognitionTask?.cancel()
@@ -179,68 +385,12 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
                 
                 self.recordButton.isEnabled = true
                 let bestStr = res?.bestTranscription.formattedString
-                self.voiceLbl.text = bestStr
-                switch bestStr {
-                case "Statue of Liberty":
-                    self.userInputLoc = FlyoverAwesomePlace.newYorkStatueOfLiberty
-                case "New York":
-                    self.userInputLoc = FlyoverAwesomePlace.newYork
-                case "Golden Gate bridge":
-                    self.userInputLoc = FlyoverAwesomePlace.sanFranciscoGoldenGateBridge
-                case "Central park":
-                    self.userInputLoc = FlyoverAwesomePlace.centralParkNY
-                case "Googolplex":
-                    self.userInputLoc = FlyoverAwesomePlace.googlePlex
-                case "Miami Beach":
-                    self.userInputLoc = FlyoverAwesomePlace.miamiBeach
-                case "Laguna Beach":
-                    self.userInputLoc = FlyoverAwesomePlace.lagunaBeach
-                case "Griffith Observatory":
-                    self.userInputLoc = FlyoverAwesomePlace.griffithObservatory
-                case "Luxor Resort":
-                    self.userInputLoc = FlyoverAwesomePlace.luxorResortLasVegas
-                case "Luxury Resort":
-                    self.userInputLoc = FlyoverAwesomePlace.luxorResortLasVegas
-                case "Apple headquarters":
-                    self.userInputLoc = FlyoverAwesomePlace.appleHeadquarter
-                case "Apple HQ":
-                    self.userInputLoc = FlyoverAwesomePlace.appleHeadquarter
-                case "Brandenburger Gate":
-                    self.userInputLoc = FlyoverAwesomePlace.berlinBrandenburgerGate
-                case "Brandenburg Gate":
-                    self.userInputLoc = FlyoverAwesomePlace.berlinBrandenburgerGate
-                case "Brandenburg gate":
-                    self.userInputLoc = FlyoverAwesomePlace.berlinBrandenburgerGate
-                case "Hamburg town hall":
-                    self.userInputLoc = FlyoverAwesomePlace.hamburgTownHall
-                case "Cologne cathedral":
-                    self.userInputLoc = FlyoverAwesomePlace.cologneCathedral
-                case "Munich Church":
-                    self.userInputLoc = FlyoverAwesomePlace.munichCurch
-                case "Neuschwanstein Castle":
-                    self.userInputLoc = FlyoverAwesomePlace.neuschwansteinCastle
-                case "Hamburg Philharmonic":
-                    self.userInputLoc = FlyoverAwesomePlace.hamburgElbPhilharmonic
-                case "Hamburger philharmonic":
-                    self.userInputLoc = FlyoverAwesomePlace.hamburgElbPhilharmonic
-                case "Muenster Castle":
-                    self.userInputLoc = FlyoverAwesomePlace.muensterCastle
-                case "Colosseum":
-                    self.userInputLoc = FlyoverAwesomePlace.romeColosseum
-                case "Piazza di Trevi":
-                    self.userInputLoc = FlyoverAwesomePlace.piazzaDiTrevi
-                case "Sagrada Familia":
-                    self.userInputLoc = FlyoverAwesomePlace.sagradaFamiliaSpain
-                case "Big Ben":
-                    self.userInputLoc = FlyoverAwesomePlace.londonBigBen
-                case "London eye":
-                    self.userInputLoc = FlyoverAwesomePlace.londonEye
-                case "Sydney opera House":
-                    self.userInputLoc = FlyoverAwesomePlace.sydneyOperaHouse
-                case "Eiffel Tower":
+                self.voiceLbl.text = bestStr //change to voiceLbl in master
+                if self.locDict.keys.contains(bestStr!) {
                     self.userInputLoc = FlyoverAwesomePlace.parisEiffelTower
-                default:
-                    self.userInputLoc = FlyoverAwesomePlace.newYorkStatueOfLiberty
+                }
+                else {
+                    self.userInputLoc = self.locDict[bestStr!]!
                 }
                 self.mapSetUp()
                 
@@ -260,26 +410,7 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
         }
         
     }
-    func mapSetUp() {
-        let topMargin:CGFloat = view.frame.size.height - 100
-        let mapWidth:CGFloat = view.frame.size.width - 40
-        let mapHeight:CGFloat = view.frame.size.height/3
-        
-        self.mapView.frame = CGRect(x: self.view.center.x - mapWidth, y: topMargin - 250, width: mapWidth, height: mapHeight)
-        let camera = FlyoverCamera(mapView: self.mapView, configuration: FlyoverCamera.Configuration(duration: 6.0, altitude: 300, pitch: 45.0, headingStep: 20.0))
-        camera.start(flyover: self.userInputLoc) //init
-        self.mapView.mapType = .hybridFlyover
-        self.mapView.showsBuildings = true
-        self.mapView.isZoomEnabled = true
-        self.mapView.isScrollEnabled = true
-        
-        self.mapView.center.x = self.view.center.x
-        self.mapView.center.y = self.view.center.y/2
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(6), execute: {
-            camera.stop()
-        })
-        self.view.addSubview(self.mapView) //need this or tries to like recalibrate
-    }
+   
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -292,30 +423,5 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
 fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
 	return input.rawValue
 }
-// MARK: WKNavigationDelegate
-extension ViewController : WKNavigationDelegate {
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        print("WebView:", webView, "finished navigation:", navigation)
-        
-        self.navigationItem.title = webView.title
-    }
-    
-    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        let message = String(format: "WebView:", webView, "did fail navigation:", navigation, error as CVarArg)
-        presentError(message: message)
-    }
-}
 
-// MARK: TVIVideoViewDelegate
-extension ViewController : TVIVideoViewDelegate {
-    func videoViewDidReceiveData(_ view: TVIVideoView) {
-        if (view == remoteView) {
-            remoteView?.isHidden = false
-            self.view.setNeedsLayout()
-        }
-    }
-    
-    func videoView(_ view: TVIVideoView, videoDimensionsDidChange dimensions: CMVideoDimensions) {
-        self.view.setNeedsLayout()
-    }
-}
+

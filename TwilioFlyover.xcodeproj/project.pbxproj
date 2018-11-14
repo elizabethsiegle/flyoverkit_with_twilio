@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1C44BE45216EC883009A9D04 /* ScreenCapturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C44BE44216EC883009A9D04 /* ScreenCapturer.swift */; };
 		1C919DEE21375162008CC300 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C919DED21375162008CC300 /* AppDelegate.swift */; };
 		1C919DF021375162008CC300 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C919DEF21375162008CC300 /* ViewController.swift */; };
 		1C919DF321375162008CC300 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C919DF121375162008CC300 /* Main.storyboard */; };
 		1C919DF821375163008CC300 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C919DF721375163008CC300 /* Assets.xcassets */; };
 		1C919DFB21375163008CC300 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C919DF921375163008CC300 /* LaunchScreen.storyboard */; };
+		1CB730DD219A54FF00B60C42 /* ReplayKitVideoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB730DC219A54FF00B60C42 /* ReplayKitVideoSource.swift */; };
 		BBD971A000875F1B99F3D53C /* Pods_TwilioFlyover.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43F1F8F1D97B39B353567244 /* Pods_TwilioFlyover.framework */; };
 		E815B3D492D2156767D64152 /* Pods_TwilioFlyoverUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ACC6B5A51EFEA8578497D08 /* Pods_TwilioFlyoverUITests.framework */; };
 		FF64D7B6378A609150ED9424 /* Pods_TwilioFlyoverTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E2386AE6430362131653DF /* Pods_TwilioFlyoverTests.framework */; };
@@ -38,7 +38,6 @@
 /* Begin PBXFileReference section */
 		0ACC6B5A51EFEA8578497D08 /* Pods_TwilioFlyoverUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwilioFlyoverUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1343AB59D0E5F7A2C5468052 /* Pods-TwilioFlyover.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwilioFlyover.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TwilioFlyover/Pods-TwilioFlyover.debug.xcconfig"; sourceTree = "<group>"; };
-		1C44BE44216EC883009A9D04 /* ScreenCapturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenCapturer.swift; sourceTree = "<group>"; };
 		1C919DEA21375162008CC300 /* TwilioFlyover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwilioFlyover.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C919DED21375162008CC300 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C919DEF21375162008CC300 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -49,6 +48,7 @@
 		1C919E0121375163008CC300 /* TwilioFlyoverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TwilioFlyoverTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C919E0C21375163008CC300 /* TwilioFlyoverUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TwilioFlyoverUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C9324AA21656F3100BA7568 /* FlyoverKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FlyoverKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1CB730DC219A54FF00B60C42 /* ReplayKitVideoSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplayKitVideoSource.swift; sourceTree = "<group>"; };
 		3B1EE2E05349475A06EDAAAF /* Pods-TwilioFlyoverUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwilioFlyoverUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TwilioFlyoverUITests/Pods-TwilioFlyoverUITests.release.xcconfig"; sourceTree = "<group>"; };
 		43F1F8F1D97B39B353567244 /* Pods_TwilioFlyover.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwilioFlyover.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D80EBF8A6457CCF9CCDCB69 /* Pods-TwilioFlyover.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwilioFlyover.release.xcconfig"; path = "Pods/Target Support Files/Pods-TwilioFlyover/Pods-TwilioFlyover.release.xcconfig"; sourceTree = "<group>"; };
@@ -120,9 +120,9 @@
 		1C919DEC21375162008CC300 /* TwilioFlyover */ = {
 			isa = PBXGroup;
 			children = (
+				1CB730DC219A54FF00B60C42 /* ReplayKitVideoSource.swift */,
 				1C919DED21375162008CC300 /* AppDelegate.swift */,
 				1C919DEF21375162008CC300 /* ViewController.swift */,
-				1C44BE44216EC883009A9D04 /* ScreenCapturer.swift */,
 				1C919DF121375162008CC300 /* Main.storyboard */,
 				1C919DF721375163008CC300 /* Assets.xcassets */,
 				1C919DF921375163008CC300 /* LaunchScreen.storyboard */,
@@ -359,7 +359,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C44BE45216EC883009A9D04 /* ScreenCapturer.swift in Sources */,
+				1CB730DD219A54FF00B60C42 /* ReplayKitVideoSource.swift in Sources */,
 				1C919DF021375162008CC300 /* ViewController.swift in Sources */,
 				1C919DEE21375162008CC300 /* AppDelegate.swift in Sources */,
 			);
