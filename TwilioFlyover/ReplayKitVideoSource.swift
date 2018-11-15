@@ -1,8 +1,9 @@
 //
 //  ReplayKitVideoSource.swift
-//  
+//  TwilioFlyover
 //
-//  Created by Lizzie Siegle on 11/12/18.
+//  Created by Lizzie Siegle on 11/14/18.
+//  Copyright © 2018 Lizzie Siegle. All rights reserved.
 //
 
 import Accelerate
@@ -20,6 +21,8 @@ class ReplayKitVideoSource: NSObject, TVIVideoCapturer {
      * from ReplayKit do not seem to represent exact vSyncs that are measurable 1/60 second or 1/120 second increments.
      * For now we've increased the constant so that we will not drop frames (except for repeats) on an iPhone.
      */
+    var accessToken: String = "TWILIO_ACCESS_TOKEN"
+    let accessTokenUrl = "http://127.0.0.1:5000/"
     static let kDesiredFrameRate = 120
     
     static let kFormatFrameRate = UIScreen.main.maximumFramesPerSecond
@@ -142,12 +145,12 @@ class ReplayKitVideoSource: NSObject, TVIVideoCapturer {
             return
         }
         
-        // Discover the dispatch queue that we are operating on.
-        if videoQueue == nil {
-            //videoQueue = ExampleCoreAudioDeviceGetCurrentQueue()
-            consumer.captureDidStart(true)
-        }
-        
+//        // Discover the dispatch queue that we are operating on.
+//        if videoQueue == nil {
+//            videoQueue = ExampleCoreAudioDeviceGetCurrentQueue()
+//            consumer.captureDidStart(true)
+//        }
+//
         // Frame dropping logic.
         if let lastTimestamp = lastTimestamp {
             let currentTimestmap = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
@@ -408,3 +411,4 @@ class ReplayKitVideoSource: NSObject, TVIVideoCapturer {
         return videoOrientation
     }
 }
+

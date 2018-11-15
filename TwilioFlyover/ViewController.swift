@@ -13,7 +13,24 @@ import Speech
 import TwilioVideo
 import ReplayKit
 
-class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDelegate, RPScreenRecorderDelegate, TVIRoomDelegate {
+struct TokenUtils {
+    static func fetchToken(url : String) throws -> String {
+        var token: String = "TWILIO_ACCESS_TOKEN"
+        let requestURL: URL = URL(string: url)!
+        do {
+            let data = try Data(contentsOf: requestURL)
+            if let tokenReponse = String.init(data: data, encoding: String.Encoding.utf8) {
+                token = tokenReponse
+            }
+        } catch let error as NSError {
+            print ("Invalid token url, error = \(error)")
+            throw error
+        }
+        return token
+    }
+}
+
+class ViewController: UIViewController, MKMapViewDelegate, RPBroadcastControllerDelegate, SFSpeechRecognizerDelegate, RPScreenRecorderDelegate, TVIRoomDelegate {
     var locDict = [
         "Statue of Liberty": FlyoverAwesomePlace.newYorkStatueOfLiberty,
         "New York": FlyoverAwesomePlace.newYork,
@@ -89,6 +106,7 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+    
 
     func mapSetUp() {
         let topMargin:CGFloat = view.frame.size.height - 100
@@ -137,9 +155,6 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
                 self.recordButton.isEnabled = buttonState
             }
         }
-        
-    
-        
         // The setter fires an availability changed event, but we check rather than rely on this implementation detail.
         RPScreenRecorder.shared().delegate = self
         checkRecordingAvailability()
@@ -166,6 +181,34 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
             startRecording()
             recordButton.setTitle("Stop", for: .normal)
         }
+        //startbroadcast
+        if let controller = self.broadcastController {
+            controller.finishBroadcast { [unowned self] error in
+                DispatchQueue.main.async {
+                    self.spinner.stopAnimating()
+                    self.broadcastController = nil
+                }
+            }
+        } else {
+            // This extension should be the broadcast upload extension UI, not broadcast update extension
+            RPBroadcastActivityViewController.load(withPreferredExtension:ViewController.kBroadcastExtensionSetupUiBundleId) {
+                (broadcastActivityViewController, error) in
+                if let broadcastActivityViewController = broadcastActivityViewController {
+                    broadcastActivityViewController.delegate = self as! RPBroadcastActivityViewControllerDelegate
+                    broadcastActivityViewController.modalPresentationStyle = .popover
+                    self.present(broadcastActivityViewController, animated: true)
+                }
+            }
+        }
+       
+    }
+    @IBAction func startConference(_ sender: UIButton) {
+        sender.isEnabled = false
+        if self.screenTrack != nil {
+            stopConference(error: nil)
+        } else {
+            startConference()
+        }
     }
     
     @available(iOS 12.0, *)
@@ -183,6 +226,51 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
 
         self.broadcastPickerView = pickerView
         #endif
+    }
+    
+    //MARK: RPBroadcastActivityViewControllerDelegate
+    func broadcastActivityViewController(_ broadcastActivityViewController: RPBroadcastActivityViewController, didFinishWith broadcastController: RPBroadcastController?, error: Error?) {
+        
+        DispatchQueue.main.async {
+            self.broadcastController = broadcastController
+            self.broadcastController?.delegate = self
+            self.conferenceButton?.isEnabled = false
+            self.infoLabel?.text = ""
+            
+            broadcastActivityViewController.dismiss(animated: true) {
+                self.startBroadcast()
+            }
+        }
+    }
+    
+    //MARK: RPBroadcastControllerDelegate
+    func broadcastController(_ broadcastController: RPBroadcastController, didFinishWithError error: Error?) {
+        // Update the button UI.
+        DispatchQueue.main.async {
+            self.broadcastController = nil
+            if let picker = self.broadcastPickerView {
+                picker.isHidden = false
+                self.broadcastButton.isHidden = false
+            } else {
+                self.broadcastButton.isEnabled = true
+            }
+            self.spinner?.stopAnimating()
+            
+            if let theError = error {
+                print("Broadcast did finish with error:", error as Any)
+                self.infoLabel?.text = theError.localizedDescription
+            } else {
+                print("Broadcast did finish.")
+            }
+        }
+    }
+    
+    func broadcastController(_ broadcastController: RPBroadcastController, didUpdateServiceInfo serviceInfo: [String : NSCoding & NSObjectProtocol]) {
+        print("Broadcast did update service info: \(serviceInfo)")
+    }
+    
+    func broadcastController(_ broadcastController: RPBroadcastController, didUpdateBroadcast broadcastURL: URL) {
+        print("Broadcast did update URL: \(broadcastURL)")
     }
 
     
@@ -219,6 +307,19 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
     //MARK: Private
     func checkRecordingAvailability() {
         let isScreenRecordingAvailable = RPScreenRecorder.shared().isAvailable
+    }
+    
+    func startBroadcast() {
+        self.broadcastController?.startBroadcast { [unowned self] error in
+            DispatchQueue.main.async {
+                if let theError = error {
+                    print("Broadcast controller failed to start with error:", theError as Any)
+                } else {
+                    print("Broadcast controller started.")
+                    self.spinner.startAnimating()
+                }
+            }
+        }
     }
     
     func stopConference(error: Error?) {
@@ -316,35 +417,35 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
         }
     }
     
-//    func connectToRoom(name: String) {
-//        // Configure access token either from server or manually.
-//        // If the default wasn't changed, try fetching from server.
-////        if (accessToken == "TWILIO_ACCESS_TOKEN" || accessToken.isEmpty) {
-////            do {
-////                accessToken = try TokenUtils.fetchToken(url: accessTokenUrl)
-////            } catch {
-////                stopConference(error: error)
-////                return
-////            }
-//       // }
-//
-//        // Preparing the connect options with the access token that we fetched (or hardcoded).
-//        let connectOptions = TVIConnectOptions.init(token: self.accessToken) { (builder) in
-//
-//            builder.audioTracks = [TVILocalAudioTrack()!]
-//
-//            if let videoTrack = self.screenTrack {
-//                builder.videoTracks = [videoTrack]
-//            }
-//
-//            if (!name.isEmpty) {
-//                builder.roomName = name
-//            }
-//        }
-//
-//        // Connect to the Room using the options we provided.
-//        conferenceRoom = TwilioVideo.connect(with: connectOptions, delegate: self)
-//    }
+    func connectToRoom(name: String) {
+        // Configure access token either from server or manually.
+        // If the default wasn't changed, try fetching from server.
+        if (accessToken == "TWILIO_ACCESS_TOKEN" || accessToken.isEmpty) {
+            do {
+                accessToken = try TokenUtils.fetchToken(url: accessTokenUrl)
+            } catch {
+                stopConference(error: error)
+                return
+            }
+        }
+
+        // Preparing the connect options with the access token that we fetched (or hardcoded).
+        let connectOptions = TVIConnectOptions.init(token: self.accessToken) { (builder) in
+
+            builder.audioTracks = [TVILocalAudioTrack()!]
+
+            if let videoTrack = self.screenTrack {
+                builder.videoTracks = [videoTrack]
+            }
+
+            if (!name.isEmpty) {
+                builder.roomName = name
+            }
+        }
+
+        // Connect to the Room using the options we provided.
+        conferenceRoom = TwilioVideo.connect(with: connectOptions, delegate: self)
+    }
 
 
     func startRecording() {
@@ -385,7 +486,7 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
                 
                 self.recordButton.isEnabled = true
                 let bestStr = res?.bestTranscription.formattedString
-                self.voiceLbl.text = bestStr //change to voiceLbl in master
+                self.voiceLbl.text = bestStr
                 if self.locDict.keys.contains(bestStr!) {
                     self.userInputLoc = FlyoverAwesomePlace.parisEiffelTower
                 }
