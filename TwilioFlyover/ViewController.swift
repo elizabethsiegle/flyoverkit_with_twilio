@@ -30,35 +30,33 @@ class ViewController: UIViewController, MKMapViewDelegate {
     }
     
     let locDict = [
-            FlyoverAwesomePlace.newYorkStatueOfLiberty : "Statue of Liberty",
-            FlyoverAwesomePlace.newYork : "New York",
-            FlyoverAwesomePlace.sanFranciscoGoldenGateBridge : "Golden Gate Bridge",
-            FlyoverAwesomePlace.centralParkNY : "Central Park",
-            FlyoverAwesomePlace.googlePlex: "Googleplex",
-            FlyoverAwesomePlace.miamiBeach: "Miami Beach",
-            FlyoverAwesomePlace.lagunaBeach: "Laguna Beach",
-            FlyoverAwesomePlace.griffithObservatory: "Griffith Observatory",
-            FlyoverAwesomePlace.luxorResortLasVegas : "Luxor Resort",
-            FlyoverAwesomePlace.appleHeadquarter : "Apple HQ",
-            FlyoverAwesomePlace.berlinBrandenburgerGate : "Brandenburger Gate",
-            FlyoverAwesomePlace.hamburgTownHall : "Hamburg Town Hall",
-            FlyoverAwesomePlace.cologneCathedral : "Cologne Cathedral",
-            FlyoverAwesomePlace.munichCurch : "Munich Church",
-            FlyoverAwesomePlace.neuschwansteinCastle : "Neuschwanstein Castle",
-            FlyoverAwesomePlace.hamburgElbPhilharmonic : "Hamburg Philharmonic",
-            FlyoverAwesomePlace.muensterCastle: "Muenster Castle",
-            FlyoverAwesomePlace.romeColosseum : "Rome Colosseum",
-            FlyoverAwesomePlace.piazzaDiTrevi : "Piazza di Trevi",
-            FlyoverAwesomePlace.sagradaFamiliaSpain: "Sagrada Familia",
-            FlyoverAwesomePlace.londonBigBen: "Big Ben",
-            FlyoverAwesomePlace.londonEye: "London Eye",
-            FlyoverAwesomePlace.sydneyOperaHouse: "Sydney Opera House",
-            FlyoverAwesomePlace.parisEiffelTower: "Eiffel Tower"
-        ]
+        "Statue of Liberty": FlyoverAwesomePlace.newYorkStatueOfLiberty,
+        "New York": FlyoverAwesomePlace.newYork,
+        "Golden Gate Bridge": FlyoverAwesomePlace.sanFranciscoGoldenGateBridge,
+        "Central Park": FlyoverAwesomePlace.centralParkNY,
+        "Googleplex": FlyoverAwesomePlace.googlePlex,
+        "Miami Beach": FlyoverAwesomePlace.miamiBeach,
+        "Laguna Beach": FlyoverAwesomePlace.lagunaBeach,
+        "Griffith Observatory":FlyoverAwesomePlace.griffithObservatory,
+        "Luxor Resort": FlyoverAwesomePlace.luxorResortLasVegas,
+        "Apple HQ": FlyoverAwesomePlace.appleHeadquarter,
+        "Brandenburger Gate": FlyoverAwesomePlace.berlinBrandenburgerGate,
+        "Hamburg Town Hall": FlyoverAwesomePlace.hamburgTownHall,
+        "Cologne Cathedral": FlyoverAwesomePlace.cologneCathedral,
+        "Munich Church": FlyoverAwesomePlace.munichCurch,
+        "Neuschwanstein Castle": FlyoverAwesomePlace.neuschwansteinCastle,
+        "Hamburg Philharmonic": FlyoverAwesomePlace.hamburgElbPhilharmonic,
+        "Muenster Castle": FlyoverAwesomePlace.muensterCastle,
+        "Rome Colosseum": FlyoverAwesomePlace.romeColosseum,
+        "Piazza di Trevi": FlyoverAwesomePlace.piazzaDiTrevi,
+        "Sagrada Familia": FlyoverAwesomePlace.sagradaFamiliaSpain,
+        "Big Ben": FlyoverAwesomePlace.londonBigBen,
+        "London Eye": FlyoverAwesomePlace.londonEye,
+        "Sydney Opera House": FlyoverAwesomePlace.sydneyOperaHouse,
+        "Eiffel Tower": FlyoverAwesomePlace.parisEiffelTower
+    ]
     override func viewDidLoad() {
         super.viewDidLoad()
-        placeLbl.sizeToFit()
-        placeLbl.textAlignment = .center
         placeLbl.center.x = self.view.center.x
         self.mapSetUp()
     }
@@ -69,13 +67,13 @@ class ViewController: UIViewController, MKMapViewDelegate {
     }
     @IBAction func locButtonClicked(_ sender: Any) {
         let rand = locDict.randomElement()
-        print("here 2", type(of: rand!.key as Flyover!))
         let camera = FlyoverCamera(mapView: self.mapView, configuration: FlyoverCamera.Configuration(duration: 6.0, altitude: 300, pitch: 45.0, headingStep: 40.0))
-        camera.start(flyover: rand!.key as FlyoverAwesomePlace)
+        camera.start(flyover: rand!.value as FlyoverAwesomePlace)
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(6), execute: {
             camera.stop()
         })
-        placeLbl.text = "\(rand!.value)"
+        placeLbl.text = "\(rand!.key)"
+        placeLbl.sizeToFit()
     }
    
    
