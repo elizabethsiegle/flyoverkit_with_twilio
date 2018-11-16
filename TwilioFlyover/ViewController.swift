@@ -57,7 +57,6 @@ class ViewController: UIViewController, MKMapViewDelegate {
     ]
     override func viewDidLoad() {
         super.viewDidLoad()
-        placeLbl.center.x = self.view.center.x
         self.mapSetUp()
     }
     
@@ -73,6 +72,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
             camera.stop()
         })
         placeLbl.text = "\(rand!.key)"
+        placeLbl.textAlignment = .center
+        placeLbl.center.x = self.view.center.x
         placeLbl.sizeToFit()
     }
    
