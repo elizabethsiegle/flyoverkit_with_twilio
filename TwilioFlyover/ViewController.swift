@@ -55,6 +55,13 @@ class ViewController: UIViewController, MKMapViewDelegate {
             FlyoverAwesomePlace.sydneyOperaHouse: "Sydney Opera House",
             FlyoverAwesomePlace.parisEiffelTower: "Eiffel Tower"
         ]
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        placeLbl.sizeToFit()
+        placeLbl.textAlignment = .center
+        placeLbl.center.x = self.view.center.x
+        self.mapSetUp()
+    }
     
     @IBOutlet weak var placeLbl: UILabel!
     @IBOutlet weak var mapView: MKMapView!
@@ -62,22 +69,15 @@ class ViewController: UIViewController, MKMapViewDelegate {
     }
     @IBAction func locButtonClicked(_ sender: Any) {
         let rand = locDict.randomElement()
+        print("here 2", type(of: rand!.key as Flyover!))
         let camera = FlyoverCamera(mapView: self.mapView, configuration: FlyoverCamera.Configuration(duration: 6.0, altitude: 300, pitch: 45.0, headingStep: 40.0))
-        camera.start(flyover: rand?.key as! Flyover)
+        camera.start(flyover: rand!.key as FlyoverAwesomePlace)
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(6), execute: {
             camera.stop()
         })
         placeLbl.text = "\(rand!.value)"
     }
    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        placeLbl.textAlignment = .center
-        placeLbl.center.x = self.view.center.x           
-        self.mapSetUp()
-    }
-    
    
     
     override func didReceiveMemoryWarning() {
