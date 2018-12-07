@@ -12,19 +12,11 @@ import MapKit
 import Speech
 
 class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDelegate {
-    
-    var userInputLoc = FlyoverAwesomePlace.parisEiffelTower //init
-    let speechRecognizer: SFSpeechRecognizer? = SFSpeechRecognizer(locale: Locale.init(identifier: "en-US")) //other languages
-    //generate recognition tasks, return results, handle authorization and configure locales
+    var userInputLoc = FlyoverAwesomePlace.parisEiffelTower
+    let speechRecognizer: SFSpeechRecognizer? = SFSpeechRecognizer(locale: Locale.init(identifier:"en-us"))
     var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     var recognitionTask: SFSpeechRecognitionTask?
     let audioEngine = AVAudioEngine()
-    
-
-    @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var recordButton: UIButton!
-
-    @IBOutlet weak var placeLbl: UILabel!
     
     func mapSetUp() {
         let topMargin:CGFloat = view.frame.size.height - 100
@@ -32,8 +24,7 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
         let mapHeight:CGFloat = view.frame.size.height/3
         
         self.mapView.frame = CGRect(x: self.view.center.x - mapWidth, y: topMargin - 250, width: mapWidth, height: mapHeight)
-        let camera = FlyoverCamera(mapView: self.mapView, configuration: FlyoverCamera.Configuration(duration: 6.0, altitude: 300, pitch: 45.0, headingStep: 20.0))
-        camera.start(flyover: self.userInputLoc) //init
+        
         self.mapView.mapType = .hybridFlyover
         self.mapView.showsBuildings = true
         self.mapView.isZoomEnabled = true
@@ -41,54 +32,44 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
         
         self.mapView.center.x = self.view.center.x
         self.mapView.center.y = self.view.center.y/2
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(6), execute: {
+        let camera = FlyoverCamera(mapView: self.mapView, configuration: FlyoverCamera.Configuration(duration: 6.0, altitude: 300, pitch: 45.0, headingStep: 20.0))
+        camera.start(flyover: self.userInputLoc) //init
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(9), execute: {
             camera.stop()
         })
-        self.view.addSubview(self.mapView) 
+        
+        self.view.addSubview(self.mapView)
     }
-    var locDict = [
+    
+    let locDict = [
         "Statue of Liberty": FlyoverAwesomePlace.newYorkStatueOfLiberty,
-        "New York":FlyoverAwesomePlace.newYork,
-        "Golden Gate bridge": FlyoverAwesomePlace.sanFranciscoGoldenGateBridge,
-        "Central park": FlyoverAwesomePlace.centralParkNY,
-        "Googolplex": FlyoverAwesomePlace.googlePlex,
+        "New York": FlyoverAwesomePlace.newYork,
+        "Golden Gate Bridge": FlyoverAwesomePlace.sanFranciscoGoldenGateBridge,
+        "Central Park": FlyoverAwesomePlace.centralParkNY,
+        "Googleplex": FlyoverAwesomePlace.googlePlex,
         "Miami Beach": FlyoverAwesomePlace.miamiBeach,
         "Laguna Beach": FlyoverAwesomePlace.lagunaBeach,
-        "Griffith Observatory": FlyoverAwesomePlace.griffithObservatory,
+        "Griffith Observatory":FlyoverAwesomePlace.griffithObservatory,
         "Luxor Resort": FlyoverAwesomePlace.luxorResortLasVegas,
-        "Luxury Resort": FlyoverAwesomePlace.luxorResortLasVegas,
-        "Apple headquarters": FlyoverAwesomePlace.appleHeadquarter,
         "Apple HQ": FlyoverAwesomePlace.appleHeadquarter,
         "Brandenburger Gate": FlyoverAwesomePlace.berlinBrandenburgerGate,
-        "Brandenburg Gate": FlyoverAwesomePlace.berlinBrandenburgerGate,
-        "Hamburg town hall": FlyoverAwesomePlace.hamburgTownHall,
-        "Cologne cathedral": FlyoverAwesomePlace.cologneCathedral,
-        "Munich Church":FlyoverAwesomePlace.munichCurch,
-        "Neuschwanstein Castle":FlyoverAwesomePlace.neuschwansteinCastle,
-        "Hamburg Philharmonic":FlyoverAwesomePlace.hamburgElbPhilharmonic,
-        "Hamburger philharmonic":FlyoverAwesomePlace.hamburgElbPhilharmonic,
-        "Muenster Castle":FlyoverAwesomePlace.muensterCastle,
-        "Colosseum":FlyoverAwesomePlace.romeColosseum,
-        "Piazza di Trevi":FlyoverAwesomePlace.piazzaDiTrevi,
-        "Sagrada Familia":FlyoverAwesomePlace.sagradaFamiliaSpain,
-        "Big Ben":FlyoverAwesomePlace.londonBigBen,
-        "London eye":FlyoverAwesomePlace.londonEye,
-        "Sydney opera House":FlyoverAwesomePlace.sydneyOperaHouse,
-        "Eiffel Tower":FlyoverAwesomePlace.parisEiffelTower
+        "Hamburg Town Hall": FlyoverAwesomePlace.hamburgTownHall,
+        "Cologne Cathedral": FlyoverAwesomePlace.cologneCathedral,
+        "Munich Church": FlyoverAwesomePlace.munichCurch,
+        "Neuschwanstein Castle": FlyoverAwesomePlace.neuschwansteinCastle,
+        "Hamburg Philharmonic": FlyoverAwesomePlace.hamburgElbPhilharmonic,
+        "Muenster Castle": FlyoverAwesomePlace.muensterCastle,
+        "Rome Colosseum": FlyoverAwesomePlace.romeColosseum,
+        "Piazza di Trevi": FlyoverAwesomePlace.piazzaDiTrevi,
+        "Sagrada Familia": FlyoverAwesomePlace.sagradaFamiliaSpain,
+        "Big Ben": FlyoverAwesomePlace.londonBigBen,
+        "London Eye": FlyoverAwesomePlace.londonEye,
+        "Sydney Opera House": FlyoverAwesomePlace.sydneyOperaHouse,
+        "Eiffel Tower": FlyoverAwesomePlace.parisEiffelTower
     ]
-    @IBAction func recordButtonClicked(_ sender: Any) {
-        if audioEngine.isRunning {
-            audioEngine.stop()
-            recognitionRequest?.endAudio()
-            recordButton.isEnabled = false
-            self.recordButton.setTitle("Record", for: .normal)
-        } else {
-            startRecording()
-            recordButton.setTitle("Stop", for: .normal)
-        }
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         speechRecognizer?.delegate = self
         
         SFSpeechRecognizer.requestAuthorization {
@@ -109,9 +90,10 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
                 print("Speech recognition not supported on this device")
             }
             DispatchQueue.main.async {
-                self.recordButton.isEnabled = buttonState
+                self.locButton.isEnabled = buttonState
             }
         }
+        self.placeLbl.frame.size.width = view.bounds.width - 64
     }
     func startRecording() {
         if recognitionTask != nil { //created when request kicked off by the recognizer. used to track progress of a transcription or cancel it
@@ -134,9 +116,7 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
         guard let recognitionRequest = recognitionRequest else {
             fatalError("Could not create request instance")
         }
-        
         recognitionRequest.shouldReportPartialResults = true
-        
         recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) {
             res, err in
             var isLast = false
@@ -151,7 +131,7 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
                 self.recognitionRequest = nil
                 self.recognitionTask = nil
                 
-                self.recordButton.isEnabled = true
+                self.locButton.isEnabled = true
                 let bestStr = res?.bestTranscription.formattedString
                 var inDict = self.locDict.contains { $0.key == bestStr}
                 
@@ -165,6 +145,7 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
                 }
                 self.mapSetUp()
             }
+            
         }
         let format = inputNode.outputFormat(forBus: 0)
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: format) {
@@ -178,16 +159,31 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
         } catch {
             print("Can't start the engine")
         }
-        
+    }
+    
+    
+    @IBOutlet weak var placeLbl: UILabel!
+    @IBOutlet weak var mapView: MKMapView!
+    
+    @IBOutlet weak var locButton: UIButton!
+    @IBAction func locButtonClicked(_ sender: Any) {
+        if audioEngine.isRunning {
+            audioEngine.stop()
+            recognitionRequest?.endAudio()
+            locButton.isEnabled = false
+            self.locButton.setTitle("Record", for: .normal)
+        } else {
+            startRecording()
+            locButton.setTitle("Stop", for: .normal)
+        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-   
 }
-// Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
-	return input.rawValue
+    return input.rawValue
 }
+
