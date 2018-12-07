@@ -153,8 +153,16 @@ class ViewController: UIViewController, MKMapViewDelegate, SFSpeechRecognizerDel
                 
                 self.recordButton.isEnabled = true
                 let bestStr = res?.bestTranscription.formattedString
-                self.placeLbl.text = bestStr
-                self.userInputLoc = self.locDict[bestStr!]!
+                var inDict = self.locDict.contains { $0.key == bestStr}
+                
+                if inDict {
+                    self.placeLbl.text = bestStr
+                    self.userInputLoc = self.locDict[bestStr!]!
+                }
+                else {
+                    self.placeLbl.text = "can't find it in the dictionary"
+                    self.userInputLoc = FlyoverAwesomePlace.centralParkNY
+                }
                 self.mapSetUp()
             }
         }
