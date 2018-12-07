@@ -22,8 +22,7 @@
                                 <rect key="frame" x="155" y="411" width="64" height="30"/>
                                 <state key="normal" title="Click me!"/>
                                 <connections>
-                                    <action selector="locButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Gr3-eJ-7Y0"/>
-                                    <action selector="locButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rfg-2o-0W4"/>
+                                    <action selector="locButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aqZ-vI-LuE"/>
                                 </connections>
                             </button>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Rym-2M-v45">
@@ -46,6 +45,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="locButton" destination="xYn-2D-HES" id="6Dd-7O-mD7"/>
                         <outlet property="mapView" destination="Rym-2M-v45" id="1DD-64-7lm"/>
                         <outlet property="placeLbl" destination="Fw8-sx-AjU" id="d7k-Fd-wlM"/>
                     </connections>
