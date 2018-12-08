@@ -25,6 +25,12 @@ class ViewController: UIViewController, MKMapViewDelegate {
         
         self.mapView.center.x = self.view.center.x
         self.mapView.center.y = self.view.center.y/2
+        let camera = FlyoverCamera(mapView: self.mapView, configuration: FlyoverCamera.Configuration(duration: 6.0, altitude: 300, pitch: 45.0, headingStep: 20.0))
+        camera.start(flyover: self.userInputLoc) //init
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(9), execute: {
+            camera.stop()
+        })
+
         
         self.view.addSubview(self.mapView)
     }
