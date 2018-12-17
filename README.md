@@ -33,7 +33,7 @@ FlyoverKit is an extremely cool iOS library that lets you "present stunning 360Â
     * Eiffel Tower 
 
 #### Master branch
-The *master* branch corresponds to an iOS project that travels the world with [FlyoverKit](https://github.com/SvenTiigi/FlyoverKit) via speech recognition using the iOS Speech library.
+The *master* branch corresponds to an iOS project that travels the world with [FlyoverKit](https://github.com/SvenTiigi/FlyoverKit) via speech recognition using the iOS Speech library. You can read more about how this app was built on the [Twilio blog](https://www.twilio.com/blog/intro-to-speech-recognition-in-swift-via-flyoverkit).
 
 #### Part-1-simplified branch
 The *part-1-simplified* branch is a simple iOS application where different locales are visited in a `MKMapView` via `UIButton` press. The different famous monuments (of type `FlyoverAwesomePlace`) are randomized from an array. You can read more about how this app was built on the [Twilio blog](https://www.twilio.com/blog/draft-travel-the-world-with-flyoverkit-in-swift-8).
